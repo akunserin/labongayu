@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Galeri Desa Matang Labong</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,sans-serif;background:#f5f8f3;color:#26352b}
+header{background:#fff;border-bottom:1px solid #e1e9e1;padding:15px 6%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap}
+.logo{display:flex;align-items:center;gap:10px;color:#1f5c3a;font-size:20px;font-weight:bold}.logo-icon{width:38px;height:38px;background:#e5f1e5;border-radius:10px;display:flex;align-items:center;justify-content:center}
+nav{display:flex;flex-wrap:wrap;gap:5px}nav a{color:#355342;text-decoration:none;padding:8px 11px;border-radius:8px;font-size:14px}nav a:hover,nav a.active{background:#e5f1e5;color:#1f5c3a}
+main{max-width:1100px;margin:auto;padding:55px 6%}.title{text-align:center;margin-bottom:35px}.title span{color:#5d8b69;font-size:14px;font-weight:bold}.title h1{color:#1f5c3a;font-size:34px;margin-top:6px}.title p{color:#68756b;margin-top:8px}
+.gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:22px}.photo{background:#fff;padding:10px;border-radius:16px;box-shadow:0 5px 20px #1f5c3a14;cursor:pointer}.photo img{width:100%;height:240px;object-fit:cover;border-radius:11px;display:block}.caption{padding:15px 8px 10px}.caption h3{color:#1f5c3a;font-size:18px;margin-bottom:5px}.caption p{color:#68756b;font-size:14px}
+.lightbox{display:none;position:fixed;z-index:999;top:0;left:0;width:100%;height:100%;background:#000e;align-items:center;justify-content:center;padding:20px}.lightbox.show{display:flex}.lightbox img{max-width:95%;max-height:88vh;object-fit:contain;border-radius:10px}.close{position:absolute;top:15px;right:18px;width:45px;height:45px;border:0;border-radius:50%;background:#fff;color:#1f5c3a;font-size:30px;font-weight:bold;cursor:pointer}
+footer{background:#173f2a;color:#dce9df;text-align:center;padding:25px 10px;margin-top:40px}footer strong{color:#fff}
+@media(max-width:700px){header{justify-content:center;text-align:center}nav{justify-content:center;margin-top:10px}nav a{font-size:13px;padding:7px 8px}main{padding:40px 5%}.title h1{font-size:28px}.gallery{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header><div class="logo"><div class="logo-icon">🌿</div><span>Desa Matang Labong</span></div><nav>
+<a href="index.html">Beranda</a><a href="profil.html">Profil</a><a href="potensi.html">Potensi</a><a href="galeri.html" class="active">Galeri</a><a href="map.html">Map</a><a href="web.html">Web Resmi</a>
+</nav></header>
+
+<main><div class="title"><span>GALERI DESA</span><h1>Galeri Desa Matang Labong</h1><p>Kumpulan foto pemandangan, kegiatan, dan suasana Desa Matang Labong.</p></div>
+<div class="gallery">
+<div class="photo" onclick="openImage('sawah.jpg.jpg')"><img src="sawah.jpg.jpg" alt="Sawah Desa Matang Labong"><div class="caption"><h3>🌾 Pemandangan Sawah</h3><p>Pemandangan sawah di Desa Matang Labong.</p></div></div>
+<div class="photo" onclick="openImage('susana.jpg.jpg')"><img src="susana.jpg.jpg" alt="Suasana Desa Matang Labong"><div class="caption"><h3>🏡 Suasana Desa</h3><p>Suasana lingkungan Desa Matang Labong.</p></div></div>
+<div class="photo" onclick="openImage('hamparan.jpg.jpg.jpg')"><img src="hamparan.jpg.jpg.jpg" alt="Hamparan Sawah"><div class="caption"><h3>🌾 Hamparan Sawah</h3><p>Hamparan sawah di Desa Matang Labong.</p></div></div>
+<div class="photo" onclick="openImage('mts.jpg.png')"><img src="mts.jpg.png" alt="MTs"><div class="caption"><h3>🏫 MTs</h3><p>Lingkungan sekolah MTs.</p></div></div>
+<div class="photo" onclick="openImage('kegiatan.jpg.png')"><img src="kegiatan.jpg.png" alt="Kegiatan Desa"><div class="caption"><h3>🤝 Kegiatan Desa</h3><p>Kegiatan masyarakat Desa Matang Labong.</p></div></div>
+<div class="photo" onclick="openImage('gunung.jpg.jpg')"><img src="gunung.jpg.jpg" alt="Pemandangan Gunung"><div class="caption"><h3>⛰️ Pemandangan Gunung</h3><p>Pemandangan alam di sekitar desa.</p></div></div>
+<div class="photo" onclick="openImage('langit.jpg.jpg')"><img src="langit.jpg.jpg" alt="Pemandangan Langit"><div class="caption"><h3>☁️ Pemandangan Langit</h3><p>Keindahan langit dan suasana alam desa.</p></div></div>
+</div></main>
+
+<div class="lightbox" id="lightbox"><button class="close" onclick="closeImage()">×</button><img id="lightboxImage" src="" alt="Foto Desa Matang Labong"></div>
+
+<footer><p>© 2026 <strong>Desa Matang Labong</strong></p><p>Kecamatan Tebas • Kabupaten Sambas • Kalimantan Barat</p></footer>
+<script>
+function openImage(image){document.getElementById("lightboxImage").src=image;document.getElementById("lightbox").classList.add("show")}
+function closeImage(){document.getElementById("lightbox").classList.remove("show");document.getElementById("lightboxImage").src=""}
+document.getElementById("lightbox").addEventListener("click",function(e){if(e.target===this)closeImage()})
+document.addEventListener("keydown",function(e){if(e.key==="Escape")closeImage()})
+</script>
+</body>
+</html>
