@@ -1,110 +1,171 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Layanan & Pesan Warga - Desa Matang Labong</title>
-<style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:Arial,sans-serif;background:#f5f8f3;color:#26352b;line-height:1.6}
-header{background:#fff;border-bottom:1px solid #e1e9e1;padding:15px 6%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;position:sticky;top:0;z-index:10}
-.logo{display:flex;align-items:center;gap:10px;color:#1f5c3a;font-size:20px;font-weight:bold}.logo-icon{width:38px;height:38px;background:#e5f1e5;border-radius:10px;display:flex;align-items:center;justify-content:center}
-nav{display:flex;flex-wrap:wrap;gap:5px}nav a{color:#355342;text-decoration:none;padding:8px 11px;border-radius:8px;font-size:14px}nav a:hover,nav a.active{background:#e5f1e5;color:#1f5c3a}
-main{max-width:800px;margin:auto;padding:40px 6%}
-
-.form-card{background:#fff;border-radius:20px;padding:35px 30px;border:1px solid #e3ebe3;box-shadow:0 8px 25px #1f5c3a14}
-.form-card h1{color:#1f5c3a;margin-bottom:10px;text-align:center;font-size:28px}
-.form-card p.subtitle{color:#627067;text-align:center;margin-bottom:25px;font-size:14px}
-.form-group{margin-bottom:18px;text-align:left}
-.form-group label{display:block;margin-bottom:6px;font-weight:bold;color:#1f5c3a;font-size:14px}
-.form-group input, .form-group textarea{width:100%;padding:12px;border:1px solid #c2d4c2;border-radius:8px;font-size:14px;outline:none}
-.form-group input:focus, .form-group textarea:focus{border-color:#1f5c3a}
-.btn{display:inline-block;background:#1f5c3a;color:#fff;text-decoration:none;padding:13px 25px;border-radius:10px;font-weight:bold;border:none;cursor:pointer;font-size:15px}
-.btn:hover{background:#173f2a}
-
-.info{margin-top:30px;display:grid;grid-template-columns:repeat(3,1fr);gap:15px}.info-box{background:#e8f2e8;border-radius:14px;padding:20px 10px;text-align:center}.info-box strong{display:block;color:#1f5c3a;margin-bottom:5px}.info-box small{color:#657369}
-
-footer{background:#173f2a;color:#dce9df;text-align:center;padding:25px 10px;margin-top:40px}footer strong{color:#fff}
-@media(max-width:700px){header{justify-content:center;text-align:center}nav{justify-content:center;margin-top:10px}nav a{font-size:13px;padding:7px 8px}main{padding:35px 5%}.info{grid-template-columns:1fr}}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Layanan Surat & Aspirasi Desa</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background-color: #f4f7f6;
+            color: #333;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+        h2 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 8px;
+        }
+        p.subtitle {
+            text-align: center;
+            color: #7f8c8d;
+            font-size: 0.9em;
+            margin-bottom: 25px;
+        }
+        .form-group {
+            margin-bottom: 18px;
+        }
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+            color: #34495e;
+            font-size: 0.95em;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 1em;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        input:focus, select:focus, textarea:focus {
+            border-color: #27ae60;
+        }
+        button {
+            width: 100%;
+            padding: 14px;
+            background-color: #27ae60;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.05em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background-color: #219150;
+        }
+        button:disabled {
+            background-color: #95a5a6;
+            cursor: not-allowed;
+        }
+        .alert {
+            display: none;
+            padding: 12px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .alert-danger {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+    </style>
 </head>
 <body>
-<header>
-  <div class="logo"><div class="logo-icon">🌿</div><span>Desa Matang Labong</span></div>
-  <nav>
-    <a href="index.html">Beranda</a>
-    <a href="profil.html">Profil</a>
-    <a href="potensi.html">Potensi</a>
-    <a href="galeri.html">Galeri</a>
-    <a href="map.html">Map</a>
-    <a href="web.html">Web Resmi</a>
-    <a href="layanan.html" class="active">Layanan</a>
-  </nav>
-</header>
 
-<main>
-  <div class="form-card">
-    <h1>📩 Layanan & Pesan Warga</h1>
-    <p class="subtitle">Sampaikan aspirasi, pertanyaan, atau keperluan Anda secara langsung ke pihak Desa Matang Labong.</p>
-    
-    <form id="dbForm">
-      <div class="form-group">
-        <label>Nama Lengkap</label>
-        <input type="text" name="data[Nama Lengkap]" placeholder="Masukkan nama Anda" required>
-      </div>
-      <div class="form-group">
-        <label>Nomor WA</label>
-        <input type="text" name="data[Nomor WA]" placeholder="Contoh: 08123456789" required>
-      </div>
-      <div class="form-group">
-        <label>Dusun / RT</label>
-        <input type="text" name="data[Dusun / RT]" placeholder="Contoh: Dusun Labong Ayu RT 02" required>
-      </div>
-      <div class="form-group">
-        <label>Keperluan / Pesan</label>
-        <textarea name="data[Keperluan / Pesan]" rows="4" placeholder="Tuliskan keperluan Anda..." required></textarea>
-      </div>
-      <button type="submit" class="btn" style="width:100%;">Kirim Data</button>
+<div class="container">
+    <h2>Formulir Layanan Desa</h2>
+    <p class="subtitle">Isi data di bawah ini untuk mengajukan permohonan atau pengaduan.</p>
+
+    <div id="alertBox" class="alert"></div>
+
+    <form id="formLayanan">
+        <div class="form-group">
+            <label for="nama">Nama Lengkap</label>
+            <input type="text" id="nama" name="Nama Lengkap" placeholder="Masukkan nama lengkap" required>
+        </div>
+
+        <div class="form-group">
+            <label for="wa">Nomor WhatsApp</label>
+            <input type="tel" id="wa" name="Nomor WA" placeholder="Contoh: 08123456789" required>
+        </div>
+
+        <div class="form-group">
+            <label for="dusun">Dusun / RT / RW</label>
+            <input type="text" id="dusun" name="Dusun / RT" placeholder="Contoh: Dusun Mawar RT 02/01" required>
+        </div>
+
+        <div class="form-group">
+            <label for="pesan">Keperluan / Pesan</label>
+            <textarea id="pesan" name="Keperluan / Pesan" rows="4" placeholder="Tuliskan keperluan surat atau pesan aspirasi Anda..." required></textarea>
+        </div>
+
+        <button type="submit" id="btnSubmit">Kirim Permohonan</button>
     </form>
-    <p id="statusMsg" style="margin-top:15px; text-align:center; font-weight:bold;"></p>
-  </div>
-
-  <div class="info">
-    <div class="info-box"><strong>Desa</strong><small>Matang Labong</small></div>
-    <div class="info-box"><strong>Kecamatan</strong><small>Tebas</small></div>
-    <div class="info-box"><strong>Kabupaten</strong><small>Sambas</small></div>
-  </div>
-</main>
-
-<footer>
-  <p>© 2026 <strong>Desa Matang Labong</strong></p>
-  <p>Kecamatan Tebas • Kabupaten Sambas • Kalimantan Barat</p>
-</footer>
+</div>
 
 <script>
-  const form = document.getElementById('dbForm');
-  const statusMsg = document.getElementById('statusMsg');
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbzINn-UFss3UnA714uE-RhbbskQhBJ34NL_sDKQ2ACo3-N7PtWG6-aaYitiVU0Jh_voqw/exec';
+    const form = document.getElementById('formLayanan');
+    const btnSubmit = document.getElementById('btnSubmit');
+    const alertBox = document.getElementById('alertBox');
 
-  form.addEventListener('submit', function(e) {
-    e.preventDefault();
-    statusMsg.innerText = "Sedang mengirim data...";
-    statusMsg.style.color = "#1f5c3a";
+    form.addEventListener('submit', e => {
+        e.preventDefault();
+        
+        btnSubmit.disabled = true;
+        btnSubmit.innerText = "Mengirim...";
+        alertBox.style.display = 'none';
 
-    fetch('https://sheetdb.io/api/v1/074yitgfs0tmu', {
-        method: 'POST',
-        body: new FormData(form),
-    })
-    .then(response => response.json())
-    .then(data => {
-        statusMsg.innerText = "✅ Data berhasil terkirim ke database!";
-        statusMsg.style.color = "green";
-        form.reset();
-    })
-    .catch(error => {
-        statusMsg.innerText = "❌ Gagal mengirim data, coba lagi.";
-        statusMsg.style.color = "red";
+        fetch(scriptURL, { method: 'POST', body: new FormData(form) })
+            .then(response => response.json())
+            .then(data => {
+                btnSubmit.disabled = false;
+                btnSubmit.innerText = "Kirim Permohonan";
+                
+                alertBox.className = 'alert alert-success';
+                alertBox.innerText = 'Tersimpan! Permohonan Anda telah masuk ke sistem desa.';
+                alertBox.style.display = 'block';
+                
+                form.reset();
+            })
+            .catch(error => {
+                btnSubmit.disabled = false;
+                btnSubmit.innerText = "Kirim Permohonan";
+                
+                alertBox.className = 'alert alert-danger';
+                alertBox.innerText = 'Gagal mengirim data! Silakan coba lagi.';
+                alertBox.style.display = 'block';
+                console.error('Error!', error.message);
+            });
     });
-  });
 </script>
+
 </body>
 </html>
