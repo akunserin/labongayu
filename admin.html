@@ -154,8 +154,7 @@
 </div>
 
 <script>
-    // --- PENGATURAN KATA SANDI ---
-    // Ganti 'admin123' di bawah ini dengan kata sandi rahasia Anda sendiri
+    // Passcode Admin
     const PASSWORD_ADMIN = 'admin123'; 
 
     function checkAuth() {
@@ -164,7 +163,7 @@
             document.getElementById('adminContainer').style.display = 'block';
             loadData();
         } else {
-            alert("Kata sandi salah! Anda akan dikembalikan ke halaman utama.");
+            alert("Kata sandi salah!");
             window.location.href = "index.html";
         }
     }
@@ -189,6 +188,7 @@
                     const row = data[i];
                     if (!row || row.length === 0 || !row[1]) continue;
 
+                    // Lewati baris judul kolom spreadsheet
                     const isHeader = row[0].toString().toLowerCase().includes('timestamp') || 
                                      row[0].toString().toLowerCase().includes('waktu') ||
                                      row[1].toString().toLowerCase().includes('nama');
@@ -196,6 +196,7 @@
 
                     const tr = document.createElement('tr');
 
+                    // Format Tanggal
                     let parsedDate = new Date(row[0]);
                     let tanggal = !isNaN(parsedDate.getTime()) 
                         ? parsedDate.toLocaleString('id-ID') 
@@ -252,7 +253,6 @@
         }
     }
 
-    // Jalankan pemeriksaan kata sandi saat halaman dibuka
     window.onload = checkAuth;
 </script>
 
