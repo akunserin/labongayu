@@ -117,22 +117,22 @@
     <form id="layananForm">
         <div class="form-group">
             <label for="nama">Nama Lengkap</label>
-            <input type="text" id="nama" name="nama" placeholder="Masukkan nama lengkap" required>
+            <input type="text" id="nama" name="Nama Lengkap" placeholder="Masukkan nama lengkap" required>
         </div>
 
         <div class="form-group">
             <label for="wa">Nomor WhatsApp</label>
-            <input type="tel" id="wa" name="wa" placeholder="Contoh: 081234567890" required>
+            <input type="tel" id="wa" name="Nomor WA" placeholder="Contoh: 081234567890" required>
         </div>
 
         <div class="form-group">
             <label for="dusun">Dusun / RT / RW</label>
-            <input type="text" id="dusun" name="dusun" placeholder="Contoh: Dusun II / RT 03" required>
+            <input type="text" id="dusun" name="Dusun / RT" placeholder="Contoh: Dusun II / RT 03" required>
         </div>
 
         <div class="form-group">
             <label for="pesan">Keperluan / Pesan</label>
-            <textarea id="pesan" name="pesan" placeholder="Tuliskan keperluan atau pesan Anda..." required></textarea>
+            <textarea id="pesan" name="Keperluan / Pesan" placeholder="Tuliskan keperluan atau pesan Anda..." required></textarea>
         </div>
 
         <button type="submit" class="btn-submit" id="btnSubmit">Kirim Pesan</button>
@@ -150,9 +150,9 @@
     form.addEventListener('submit', e => {
         e.preventDefault();
         btnSubmit.disabled = true;
-        btnSubmit.innerText = 'Sending...';
+        btnSubmit.innerText = 'Mengirim...';
         statusMessage.style.color = '#2980b9';
-        statusMessage.innerText = 'Mengirim pesan...';
+        statusMessage.innerText = 'Proses mengirim pesan...';
 
         fetch(scriptURL, { method: 'POST', body: new FormData(form) })
             .then(response => {
