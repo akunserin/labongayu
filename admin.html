@@ -22,6 +22,7 @@
             padding: 25px;
             border-radius: 12px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            position: relative;
         }
         .header {
             display: flex;
@@ -30,9 +31,31 @@
             flex-wrap: wrap;
             margin-bottom: 20px;
             gap: 10px;
+            padding-right: 40px;
         }
         h2 {
             color: #2c3e50;
+        }
+        .btn-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: #e74c3c;
+            color: white;
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+        }
+        .btn-close:hover {
+            background: #c0392b;
         }
         .actions {
             display: flex;
@@ -47,7 +70,7 @@
             border-radius: 6px;
             outline: none;
         }
-        button {
+        .btn-refresh {
             padding: 10px 16px;
             background-color: #2980b9;
             color: white;
@@ -56,7 +79,7 @@
             cursor: pointer;
             font-weight: bold;
         }
-        button:hover {
+        .btn-refresh:hover {
             background-color: #1f618d;
         }
         .table-wrapper {
@@ -99,19 +122,21 @@
 </head>
 <body>
 
-<div class="container">
+<div class="container" id="adminContainer" style="display: none;">
+    <a href="index.html" class="btn-close" title="Kembali ke Beranda">✕</a>
+
     <div class="header">
         <h2>Dashboard Layanan Warga</h2>
         <div class="actions">
             <input type="text" id="searchInput" onkeyup="filterTable()" placeholder="Cari nama warga...">
-            <button onclick="loadData()">Refresh Data</button>
+            <button class="btn-refresh" onclick="loadData()">Refresh Data</button>
         </div>
     </div>
 
     <div class="table-wrapper">
         <table id="dataTable">
             <thead>
-                <tr id="tableHeader">
+                <tr>
                     <th>Waktu</th>
                     <th>Nama Lengkap</th>
                     <th>Nomor WA</th>
@@ -129,6 +154,21 @@
 </div>
 
 <script>
+    // --- PENGATURAN KATA SANDI ---
+    // Ganti 'admin123' di bawah ini dengan kata sandi rahasia Anda sendiri
+    const PASSWORD_ADMIN = 'admin123'; 
+
+    function checkAuth() {
+        let inputPass = prompt("Masukkan Kata Sandi Admin:");
+        if (inputPass === PASSWORD_ADMIN) {
+            document.getElementById('adminContainer').style.display = 'block';
+            loadData();
+        } else {
+            alert("Kata sandi salah! Anda akan dikembalikan ke halaman utama.");
+            window.location.href = "index.html";
+        }
+    }
+
     const scriptURL = 'https://script.google.com/macros/s/AKfycbzINn-UFss3UnA714uE-RhbbskQhBJ34NL_sDKQ2ACo3-N7PtWG6-aaYitiVU0Jh_voqw/exec';
 
     function loadData() {
@@ -145,26 +185,27 @@
 
                 tableBody.innerHTML = '';
 
-                // Mengabaikan baris header jika baris pertama adalah judul kolom
-                let startIndex = 0;
-                if (data[0][1] && (data[0][1].toLowerCase().includes('nama') || data[0][1].toLowerCase().includes('lengkap'))) {
-                    startIndex = 1;
-                }
-
-                for (let i = startIndex; i < data.length; i++) {
+                for (let i = 0; i < data.length; i++) {
                     const row = data[i];
                     if (!row || row.length === 0 || !row[1]) continue;
 
+                    const isHeader = row[0].toString().toLowerCase().includes('timestamp') || 
+                                     row[0].toString().toLowerCase().includes('waktu') ||
+                                     row[1].toString().toLowerCase().includes('nama');
+                    if (isHeader) continue;
+
                     const tr = document.createElement('tr');
 
-                    // Format Tanggal
-                    let tanggal = row[0] ? new Date(row[0]).toLocaleString('id-ID') : '-';
+                    let parsedDate = new Date(row[0]);
+                    let tanggal = !isNaN(parsedDate.getTime()) 
+                        ? parsedDate.toLocaleString('id-ID') 
+                        : row[0];
+
                     let nama = row[1] || '-';
                     let wa = row[2] || '-';
                     let dusun = row[3] || '-';
                     let pesan = row[4] || '-';
 
-                    // Link langsung ke WhatsApp
                     let waFormatted = wa.toString().replace(/[^0-9]/g, '');
                     if (waFormatted.startsWith('0')) {
                         waFormatted = '62' + waFormatted.substring(1);
@@ -211,8 +252,8 @@
         }
     }
 
-    // Load data otomatis saat halaman pertama kali dibuka
-    window.onload = loadData;
+    // Jalankan pemeriksaan kata sandi saat halaman dibuka
+    window.onload = checkAuth;
 </script>
 
 </body>
