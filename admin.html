@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Admin Desa</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background-color: #f4f7f6;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+            gap: 10px;
+        }
+        h2 {
+            color: #2c3e50;
+        }
+        .actions {
+            display: flex;
+            gap: 10px;
+            width: 100%;
+            max-width: 400px;
+        }
+        input[type="text"] {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            outline: none;
+        }
+        button {
+            padding: 10px 16px;
+            background-color: #2980b9;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        button:hover {
+            background-color: #1f618d;
+        }
+        .table-wrapper {
+            overflow-x: auto;
+            margin-top: 15px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 0.95em;
+        }
+        th, td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #34495e;
+            color: white;
+            white-space: nowrap;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        .loading {
+            text-align: center;
+            padding: 20px;
+            font-weight: bold;
+            color: #7f8c8d;
+        }
+        .wa-link {
+            color: #27ae60;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .wa-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h2>Dashboard Layanan Warga</h2>
+        <div class="actions">
+            <input type="text" id="searchInput" onkeyup="filterTable()" placeholder="Cari nama warga...">
+            <button onclick="loadData()">Refresh Data</button>
+        </div>
+    </div>
+
+    <div class="table-wrapper">
+        <table id="dataTable">
+            <thead>
+                <tr id="tableHeader">
+                    <th>Waktu</th>
+                    <th>Nama Lengkap</th>
+                    <th>Nomor WA</th>
+                    <th>Dusun / RT</th>
+                    <th>Keperluan / Pesan</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+                <tr>
+                    <td colspan="5" class="loading">Memuat data dari Google Sheets...</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbzINn-UFss3UnA714uE-RhbbskQhBJ34NL_sDKQ2ACo3-N7PtWG6-aaYitiVU0Jh_voqw/exec';
+
+    function loadData() {
+        const tableBody = document.getElementById('tableBody');
+        tableBody.innerHTML = '<tr><td colspan="5" class="loading">Memuat data terbaru...</td></tr>';
+
+        fetch(scriptURL)
+            .then(res => res.json())
+            .then(data => {
+                if (!data || data.length === 0) {
+                    tableBody.innerHTML = '<tr><td colspan="5" class="loading">Belum ada data masuk.</td></tr>';
+                    return;
+                }
+
+                tableBody.innerHTML = '';
+
+                // Mengabaikan baris header jika baris pertama adalah judul kolom
+                let startIndex = 0;
+                if (data[0][1] && (data[0][1].toLowerCase().includes('nama') || data[0][1].toLowerCase().includes('lengkap'))) {
+                    startIndex = 1;
+                }
+
+                for (let i = startIndex; i < data.length; i++) {
+                    const row = data[i];
+                    if (!row || row.length === 0 || !row[1]) continue;
+
+                    const tr = document.createElement('tr');
+
+                    // Format Tanggal
+                    let tanggal = row[0] ? new Date(row[0]).toLocaleString('id-ID') : '-';
+                    let nama = row[1] || '-';
+                    let wa = row[2] || '-';
+                    let dusun = row[3] || '-';
+                    let pesan = row[4] || '-';
+
+                    // Link langsung ke WhatsApp
+                    let waFormatted = wa.toString().replace(/[^0-9]/g, '');
+                    if (waFormatted.startsWith('0')) {
+                        waFormatted = '62' + waFormatted.substring(1);
+                    }
+                    let waDisplay = wa !== '-' ? `<a class="wa-link" href="https://wa.me/${waFormatted}" target="_blank">${wa} 💬</a>` : '-';
+
+                    tr.innerHTML = `
+                        <td>${tanggal}</td>
+                        <td><strong>${nama}</strong></td>
+                        <td>${waDisplay}</td>
+                        <td>${dusun}</td>
+                        <td>${pesan}</td>
+                    `;
+
+                    tableBody.appendChild(tr);
+                }
+
+                if (tableBody.children.length === 0) {
+                    tableBody.innerHTML = '<tr><td colspan="5" class="loading">Belum ada data warga yang tersimpan.</td></tr>';
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+                tableBody.innerHTML = '<tr><td colspan="5" class="loading" style="color:red;">Gagal mengambil data. Pastikan jaringan aman.</td></tr>';
+            });
+    }
+
+    function filterTable() {
+        const input = document.getElementById("searchInput");
+        const filter = input.value.toLowerCase();
+        const table = document.getElementById("dataTable");
+        const tr = table.getElementsByTagName("tr");
+
+        for (let i = 1; i < tr.length; i++) {
+            let tdNama = tr[i].getElementsByTagName("td")[1];
+            if (tdNama) {
+                let textValue = tdNama.textContent || tdNama.innerText;
+                if (textValue.toLowerCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+
+    // Load data otomatis saat halaman pertama kali dibuka
+    window.onload = loadData;
+</script>
+
+</body>
+</html>
