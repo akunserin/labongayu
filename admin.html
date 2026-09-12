@@ -1,260 +1,1433 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Admin Desa</title>
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        body {
-            background-color: #f4f7f6;
-            padding: 20px;
-        }
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            background: #ffffff;
-            padding: 25px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-            position: relative;
-        }
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            margin-bottom: 20px;
-            gap: 10px;
-            padding-right: 40px;
-        }
-        h2 {
-            color: #2c3e50;
-        }
-        .btn-close {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: #e74c3c;
-            color: white;
-            border: none;
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-        }
-        .btn-close:hover {
-            background: #c0392b;
-        }
-        .actions {
-            display: flex;
-            gap: 10px;
-            width: 100%;
-            max-width: 400px;
-        }
-        input[type="text"] {
-            flex: 1;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            outline: none;
-        }
-        .btn-refresh {
-            padding: 10px 16px;
-            background-color: #2980b9;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-        .btn-refresh:hover {
-            background-color: #1f618d;
-        }
-        .table-wrapper {
-            overflow-x: auto;
-            margin-top: 15px;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            text-align: left;
-            font-size: 0.95em;
-        }
-        th, td {
-            padding: 12px 15px;
-            border-bottom: 1px solid #ddd;
-        }
-        th {
-            background-color: #34495e;
-            color: white;
-            white-space: nowrap;
-        }
-        tr:hover {
-            background-color: #f1f1f1;
-        }
-        .loading {
-            text-align: center;
-            padding: 20px;
-            font-weight: bold;
-            color: #7f8c8d;
-        }
-        .wa-link {
-            color: #27ae60;
-            text-decoration: none;
-            font-weight: bold;
-        }
-        .wa-link:hover {
-            text-decoration: underline;
-        }
-    </style>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Admin Desa Matang Labong</title>
+
+<style>
+
+/* =========================
+   DASAR
+========================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:"Segoe UI",Arial,sans-serif;
+}
+
+body{
+    min-height:100vh;
+    background:linear-gradient(135deg,#e8f5eb,#d4ead9);
+    color:#294333;
+    padding:15px;
+}
+
+
+/* =========================
+   LOGIN
+========================= */
+
+.login-overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(20,60,38,.68);
+    backdrop-filter:blur(7px);
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    padding:20px;
+    z-index:9999;
+}
+
+
+.login-box{
+    width:100%;
+    max-width:390px;
+
+    background:#ffffff;
+    border-radius:26px;
+
+    padding:30px 25px;
+
+    text-align:center;
+
+    position:relative;
+
+    box-shadow:
+        0 20px 50px rgba(0,0,0,.25);
+
+    animation:muncul .3s ease;
+}
+
+
+@keyframes muncul{
+
+    from{
+        opacity:0;
+        transform:translateY(25px) scale(.95);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0) scale(1);
+    }
+
+}
+
+
+/* ICON LOGIN */
+
+.login-icon{
+    width:75px;
+    height:75px;
+
+    margin:0 auto 15px;
+
+    border-radius:22px;
+
+    background:#e3f2e6;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:38px;
+}
+
+
+.login-box h2{
+    color:#1f5c3a;
+    font-size:24px;
+    margin-bottom:5px;
+}
+
+
+.login-box p{
+    color:#7a877f;
+    font-size:14px;
+    margin-bottom:25px;
+}
+
+
+/* TOMBOL X LOGIN */
+
+.login-close{
+    position:absolute;
+
+    right:17px;
+    top:17px;
+
+    width:38px;
+    height:38px;
+
+    border:none;
+    border-radius:50%;
+
+    background:#e9f4eb;
+    color:#28734b;
+
+    font-size:25px;
+    font-weight:bold;
+
+    cursor:pointer;
+}
+
+
+.login-close:hover{
+    background:#28734b;
+    color:white;
+}
+
+
+/* LABEL */
+
+.login-box label{
+    display:block;
+
+    text-align:left;
+
+    font-size:14px;
+    font-weight:600;
+
+    color:#365541;
+
+    margin-bottom:8px;
+}
+
+
+/* PASSWORD */
+
+.password-box{
+    width:100%;
+
+    display:flex;
+
+    border:2px solid #dce9df;
+
+    border-radius:14px;
+
+    overflow:hidden;
+
+    margin-bottom:8px;
+}
+
+
+.password-box:focus-within{
+    border-color:#28734b;
+}
+
+
+.password-box input{
+    flex:1;
+
+    border:none;
+    outline:none;
+
+    padding:14px;
+
+    font-size:15px;
+
+    min-width:0;
+}
+
+
+.password-box button{
+    border:none;
+
+    background:white;
+
+    padding:0 14px;
+
+    font-size:18px;
+
+    cursor:pointer;
+}
+
+
+/* PESAN ERROR */
+
+.error-message{
+    min-height:22px;
+
+    color:#d64545;
+
+    font-size:13px;
+
+    text-align:left;
+
+    margin-bottom:5px;
+}
+
+
+/* TOMBOL MASUK */
+
+.login-button{
+    width:100%;
+
+    border:none;
+
+    padding:14px;
+
+    border-radius:14px;
+
+    background:#28734b;
+
+    color:white;
+
+    font-size:15px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    margin-top:4px;
+}
+
+
+.login-button:hover{
+    background:#1f5c3a;
+}
+
+
+/* TOMBOL BERANDA */
+
+.home-button{
+    width:100%;
+
+    border:none;
+
+    background:transparent;
+
+    color:#28734b;
+
+    padding:13px;
+
+    font-size:14px;
+
+    cursor:pointer;
+
+    margin-top:3px;
+}
+
+
+.home-button:hover{
+    text-decoration:underline;
+}
+
+
+/* =========================
+   DASHBOARD
+========================= */
+
+.container{
+    width:100%;
+    max-width:1100px;
+
+    margin:auto;
+
+    background:white;
+
+    border-radius:24px;
+
+    padding:25px;
+
+    box-shadow:
+        0 10px 35px rgba(31,92,58,.15);
+
+    position:relative;
+}
+
+
+/* HEADER */
+
+.header{
+    display:flex;
+
+    align-items:center;
+
+    gap:13px;
+
+    padding-right:50px;
+
+    margin-bottom:23px;
+}
+
+
+.logo{
+    width:55px;
+    height:55px;
+
+    border-radius:17px;
+
+    background:#e2f1e5;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:29px;
+
+    flex-shrink:0;
+}
+
+
+.header h1{
+    color:#1f5c3a;
+
+    font-size:24px;
+
+    margin-bottom:4px;
+}
+
+
+.subtitle{
+    color:#718078;
+
+    font-size:14px;
+}
+
+
+/* TOMBOL X DASHBOARD */
+
+.btn-close{
+    position:absolute;
+
+    right:20px;
+    top:20px;
+
+    width:40px;
+    height:40px;
+
+    border:none;
+
+    border-radius:50%;
+
+    background:#28734b;
+
+    color:white;
+
+    font-size:25px;
+
+    text-decoration:none;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    cursor:pointer;
+}
+
+
+.btn-close:hover{
+    background:#1f5c3a;
+}
+
+
+/* INFO */
+
+.info{
+    background:#edf7ef;
+
+    border-left:5px solid #28734b;
+
+    border-radius:13px;
+
+    padding:15px;
+
+    margin-bottom:20px;
+
+    color:#496454;
+
+    font-size:14px;
+
+    line-height:1.6;
+}
+
+
+.info strong{
+    color:#1f5c3a;
+}
+
+
+/* =========================
+   SEARCH
+========================= */
+
+.actions{
+    display:flex;
+
+    gap:10px;
+
+    margin-bottom:20px;
+}
+
+
+.search{
+    flex:1;
+
+    border:2px solid #dce9df;
+
+    padding:13px 15px;
+
+    border-radius:13px;
+
+    outline:none;
+
+    font-size:14px;
+}
+
+
+.search:focus{
+    border-color:#28734b;
+}
+
+
+.btn-refresh{
+    border:none;
+
+    background:#28734b;
+
+    color:white;
+
+    padding:0 18px;
+
+    border-radius:13px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+}
+
+
+.btn-refresh:hover{
+    background:#1f5c3a;
+}
+
+
+/* =========================
+   TABEL
+========================= */
+
+.table-wrapper{
+    width:100%;
+
+    overflow-x:auto;
+
+    border-radius:15px;
+
+    border:1px solid #dfeae2;
+}
+
+
+table{
+    width:100%;
+
+    min-width:750px;
+
+    border-collapse:collapse;
+}
+
+
+th{
+    background:#28734b;
+
+    color:white;
+
+    padding:14px;
+
+    text-align:left;
+
+    font-size:14px;
+}
+
+
+td{
+    padding:13px;
+
+    border-bottom:1px solid #e5eee8;
+
+    font-size:14px;
+
+    vertical-align:top;
+}
+
+
+tr:hover td{
+    background:#f3f9f4;
+}
+
+
+.loading{
+    text-align:center;
+
+    padding:30px;
+
+    color:#718078;
+}
+
+
+/* WHATSAPP */
+
+.wa-link{
+    color:#168447;
+
+    text-decoration:none;
+
+    font-weight:bold;
+}
+
+
+.wa-link:hover{
+    text-decoration:underline;
+}
+
+
+/* FOOTER */
+
+.footer{
+    text-align:center;
+
+    margin-top:22px;
+
+    color:#718078;
+
+    font-size:13px;
+
+    line-height:1.7;
+}
+
+
+.footer strong{
+    color:#28734b;
+}
+
+
+/* =========================
+   HP
+========================= */
+
+@media(max-width:600px){
+
+    body{
+        padding:10px;
+    }
+
+
+    .container{
+        padding:18px;
+
+        border-radius:20px;
+    }
+
+
+    .header h1{
+        font-size:20px;
+    }
+
+
+    .logo{
+        width:47px;
+        height:47px;
+
+        font-size:24px;
+    }
+
+
+    .actions{
+        flex-direction:column;
+    }
+
+
+    .search{
+        width:100%;
+
+        height:45px;
+    }
+
+
+    .btn-refresh{
+        height:45px;
+    }
+
+
+    .info{
+        font-size:13px;
+    }
+
+}
+
+</style>
+
 </head>
+
+
 <body>
 
-<div class="container" id="adminContainer" style="display: none;">
-    <a href="index.html" class="btn-close" title="Kembali ke Beranda">✕</a>
 
-    <div class="header">
-        <h2>Dashboard Layanan Warga</h2>
-        <div class="actions">
-            <input type="text" id="searchInput" onkeyup="filterTable()" placeholder="Cari nama warga...">
-            <button class="btn-refresh" onclick="loadData()">Refresh Data</button>
+<!-- ==================================================
+     LOGIN ADMIN
+================================================== -->
+
+<div class="login-overlay" id="loginModal">
+
+    <div class="login-box">
+
+
+        <!-- X -->
+
+        <button
+            class="login-close"
+            onclick="goHome()"
+            title="Kembali ke Beranda"
+        >
+            ×
+        </button>
+
+
+        <!-- ICON -->
+
+        <div class="login-icon">
+            🌿
         </div>
+
+
+        <h2>
+            Login Admin Desa
+        </h2>
+
+
+        <p>
+            Desa Matang Labong
+        </p>
+
+
+        <!-- PASSWORD -->
+
+        <label>
+            Kata Sandi
+        </label>
+
+
+        <div class="password-box">
+
+            <input
+                type="password"
+                id="passwordInput"
+                placeholder="Masukkan kata sandi"
+                autocomplete="off"
+                onkeydown="enterLogin(event)"
+            >
+
+
+            <button
+                type="button"
+                id="eyeButton"
+                onclick="togglePassword()"
+            >
+                👁️
+            </button>
+
+        </div>
+
+
+        <!-- ERROR -->
+
+        <div
+            class="error-message"
+            id="errorMessage"
+        ></div>
+
+
+        <!-- LOGIN -->
+
+        <button
+            class="login-button"
+            onclick="loginAdmin()"
+        >
+            🔐 Masuk Admin
+        </button>
+
+
+        <!-- HOME -->
+
+        <button
+            class="home-button"
+            onclick="goHome()"
+        >
+            ← Kembali ke Beranda
+        </button>
+
+
     </div>
 
-    <div class="table-wrapper">
-        <table id="dataTable">
-            <thead>
-                <tr>
-                    <th>Waktu</th>
-                    <th>Nama Lengkap</th>
-                    <th>Nomor WA</th>
-                    <th>Dusun / RT</th>
-                    <th>Keperluan / Pesan</th>
-                </tr>
-            </thead>
-            <tbody id="tableBody">
-                <tr>
-                    <td colspan="5" class="loading">Memuat data dari Google Sheets...</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
 </div>
 
+
+
+<!-- ==================================================
+     DASHBOARD ADMIN
+================================================== -->
+
+<div
+    class="container"
+    id="adminContainer"
+    style="display:none;"
+>
+
+
+    <!-- HEADER -->
+
+    <div class="header">
+
+
+        <div class="logo">
+            🌿
+        </div>
+
+
+        <div>
+
+            <h1>
+                Dashboard Admin Desa
+            </h1>
+
+
+            <div class="subtitle">
+                Desa Matang Labong • Kecamatan Tebas
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- X -->
+
+    <a
+        href="index.html"
+        class="btn-close"
+        title="Kembali ke Beranda"
+    >
+        ×
+    </a>
+
+
+
+    <!-- INFO -->
+
+    <div class="info">
+
+        💬
+
+        <strong>
+            Data Pesan Masuk
+        </strong>
+
+        <br>
+
+        Pesan yang dikirim masyarakat melalui
+        halaman layanan akan tampil di sini
+        setelah tersimpan di Google Sheets.
+
+    </div>
+
+
+
+    <!-- SEARCH -->
+
+    <div class="actions">
+
+
+        <input
+            type="text"
+            id="searchInput"
+            class="search"
+            placeholder="🔍 Cari nama warga..."
+            onkeyup="filterTable()"
+        >
+
+
+        <button
+            class="btn-refresh"
+            onclick="loadData()"
+        >
+            🔄 Refresh Data
+        </button>
+
+
+    </div>
+
+
+
+    <!-- TABLE -->
+
+    <div class="table-wrapper">
+
+        <table id="dataTable">
+
+
+            <thead>
+
+                <tr>
+
+                    <th>
+                        Waktu
+                    </th>
+
+                    <th>
+                        Nama Lengkap
+                    </th>
+
+                    <th>
+                        Nomor WA
+                    </th>
+
+                    <th>
+                        Dusun / RT
+                    </th>
+
+                    <th>
+                        Keperluan / Pesan
+                    </th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody id="tableBody">
+
+                <tr>
+
+                    <td
+                        colspan="5"
+                        class="loading"
+                    >
+                        ⏳ Memuat data...
+                    </td>
+
+                </tr>
+
+            </tbody>
+
+
+        </table>
+
+    </div>
+
+
+
+    <!-- FOOTER -->
+
+    <div class="footer">
+
+        © 2026
+
+        <strong>
+            Desa Matang Labong
+        </strong>
+
+        <br>
+
+        Sistem Informasi dan Layanan Masyarakat
+
+    </div>
+
+
+</div>
+
+
+
 <script>
-    // Passcode Admin
-    const PASSWORD_ADMIN = 'admin123'; 
 
-    function checkAuth() {
-        let inputPass = prompt("Masukkan Kata Sandi Admin:");
-        if (inputPass === PASSWORD_ADMIN) {
-            document.getElementById('adminContainer').style.display = 'block';
-            loadData();
-        } else {
-            alert("Kata sandi salah!");
-            window.location.href = "index.html";
+/* ==================================================
+   PASSWORD ADMIN
+================================================== */
+
+const PASSWORD_ADMIN = "desa123";
+
+
+/* ==================================================
+   GOOGLE APPS SCRIPT
+================================================== */
+
+const scriptURL =
+"https://script.google.com/macros/s/AKfycbzINn-UFss3UnA714uE-RhbbskQhBJ34NL_sDKQ2ACo3-N7PtWG6-aaYitiVU0Jh_voqw/exec";
+
+
+
+/* ==================================================
+   LOGIN
+================================================== */
+
+function loginAdmin(){
+
+    const password =
+        document.getElementById(
+            "passwordInput"
+        ).value;
+
+
+    const error =
+        document.getElementById(
+            "errorMessage"
+        );
+
+
+    /* PASSWORD BENAR */
+
+    if(password === PASSWORD_ADMIN){
+
+        error.innerHTML = "";
+
+
+        document.getElementById(
+            "loginModal"
+        ).style.display = "none";
+
+
+        document.getElementById(
+            "adminContainer"
+        ).style.display = "block";
+
+
+        loadData();
+
+    }
+
+
+    /* PASSWORD SALAH */
+
+    else{
+
+        error.innerHTML =
+            "❌ Kata sandi salah. Silakan coba lagi.";
+
+
+        document.getElementById(
+            "passwordInput"
+        ).value = "";
+
+
+        document.getElementById(
+            "passwordInput"
+        ).focus();
+
+    }
+
+}
+
+
+
+/* ==================================================
+   ENTER UNTUK LOGIN
+================================================== */
+
+function enterLogin(event){
+
+    if(event.key === "Enter"){
+
+        loginAdmin();
+
+    }
+
+}
+
+
+
+/* ==================================================
+   TAMPIL / SEMBUNYIKAN PASSWORD
+================================================== */
+
+function togglePassword(){
+
+    const input =
+        document.getElementById(
+            "passwordInput"
+        );
+
+
+    const eye =
+        document.getElementById(
+            "eyeButton"
+        );
+
+
+    if(input.type === "password"){
+
+        input.type = "text";
+
+        eye.innerHTML = "🙈";
+
+    }
+
+    else{
+
+        input.type = "password";
+
+        eye.innerHTML = "👁️";
+
+    }
+
+}
+
+
+
+/* ==================================================
+   KEMBALI KE BERANDA
+================================================== */
+
+function goHome(){
+
+    window.location.href =
+        "index.html";
+
+}
+
+
+
+/* ==================================================
+   AMBIL DATA GOOGLE SHEETS
+================================================== */
+
+function loadData(){
+
+    const tableBody =
+        document.getElementById(
+            "tableBody"
+        );
+
+
+    tableBody.innerHTML = `
+
+        <tr>
+
+            <td
+                colspan="5"
+                class="loading"
+            >
+                ⏳ Memuat data terbaru...
+            </td>
+
+        </tr>
+
+    `;
+
+
+    fetch(scriptURL)
+
+    .then(function(response){
+
+        if(!response.ok){
+
+            throw new Error(
+                "Gagal menghubungi server"
+            );
+
         }
-    }
 
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbzINn-UFss3UnA714uE-RhbbskQhBJ34NL_sDKQ2ACo3-N7PtWG6-aaYitiVU0Jh_voqw/exec';
+        return response.json();
 
-    function loadData() {
-        const tableBody = document.getElementById('tableBody');
-        tableBody.innerHTML = '<tr><td colspan="5" class="loading">Memuat data terbaru...</td></tr>';
+    })
 
-        fetch(scriptURL)
-            .then(res => res.json())
-            .then(data => {
-                if (!data || data.length === 0) {
-                    tableBody.innerHTML = '<tr><td colspan="5" class="loading">Belum ada data masuk.</td></tr>';
-                    return;
-                }
 
-                tableBody.innerHTML = '';
+    .then(function(data){
 
-                for (let i = 0; i < data.length; i++) {
-                    const row = data[i];
-                    if (!row || row.length === 0 || !row[1]) continue;
 
-                    // Lewati baris judul kolom spreadsheet
-                    const isHeader = row[0].toString().toLowerCase().includes('timestamp') || 
-                                     row[0].toString().toLowerCase().includes('waktu') ||
-                                     row[1].toString().toLowerCase().includes('nama');
-                    if (isHeader) continue;
+        /* TIDAK ADA DATA */
 
-                    const tr = document.createElement('tr');
+        if(
+            !data ||
+            data.length <= 1
+        ){
 
-                    // Format Tanggal
-                    let parsedDate = new Date(row[0]);
-                    let tanggal = !isNaN(parsedDate.getTime()) 
-                        ? parsedDate.toLocaleString('id-ID') 
-                        : row[0];
+            tableBody.innerHTML = `
 
-                    let nama = row[1] || '-';
-                    let wa = row[2] || '-';
-                    let dusun = row[3] || '-';
-                    let pesan = row[4] || '-';
+                <tr>
 
-                    let waFormatted = wa.toString().replace(/[^0-9]/g, '');
-                    if (waFormatted.startsWith('0')) {
-                        waFormatted = '62' + waFormatted.substring(1);
-                    }
-                    let waDisplay = wa !== '-' ? `<a class="wa-link" href="https://wa.me/${waFormatted}" target="_blank">${wa} 💬</a>` : '-';
+                    <td
+                        colspan="5"
+                        class="loading"
+                    >
+                        📭 Belum ada pesan masuk.
+                    </td>
 
-                    tr.innerHTML = `
-                        <td>${tanggal}</td>
-                        <td><strong>${nama}</strong></td>
-                        <td>${waDisplay}</td>
-                        <td>${dusun}</td>
-                        <td>${pesan}</td>
-                    `;
+                </tr>
 
-                    tableBody.appendChild(tr);
-                }
+            `;
 
-                if (tableBody.children.length === 0) {
-                    tableBody.innerHTML = '<tr><td colspan="5" class="loading">Belum ada data warga yang tersimpan.</td></tr>';
-                }
-            })
-            .catch(error => {
-                console.error('Error fetching data:', error);
-                tableBody.innerHTML = '<tr><td colspan="5" class="loading" style="color:red;">Gagal mengambil data. Pastikan jaringan aman.</td></tr>';
-            });
-    }
+            return;
 
-    function filterTable() {
-        const input = document.getElementById("searchInput");
-        const filter = input.value.toLowerCase();
-        const table = document.getElementById("dataTable");
-        const tr = table.getElementsByTagName("tr");
+        }
 
-        for (let i = 1; i < tr.length; i++) {
-            let tdNama = tr[i].getElementsByTagName("td")[1];
-            if (tdNama) {
-                let textValue = tdNama.textContent || tdNama.innerText;
-                if (textValue.toLowerCase().indexOf(filter) > -1) {
-                    tr[i].style.display = "";
-                } else {
-                    tr[i].style.display = "none";
-                }
+
+        tableBody.innerHTML = "";
+
+
+        /* LEWATI HEADER */
+
+        for(
+            let i = 1;
+            i < data.length;
+            i++
+        ){
+
+            const row = data[i];
+
+
+            if(
+                !row ||
+                !row[1]
+            ){
+
+                continue;
+
             }
-        }
-    }
 
-    window.onload = checkAuth;
+
+            /* DATA */
+
+            let tanggal =
+                row[0] || "-";
+
+
+            const parsedDate =
+                new Date(row[0]);
+
+
+            if(
+                !isNaN(
+                    parsedDate.getTime()
+                )
+            ){
+
+                tanggal =
+                    parsedDate.toLocaleString(
+                        "id-ID"
+                    );
+
+            }
+
+
+            const nama =
+                row[1] || "-";
+
+
+            const wa =
+                row[2] || "-";
+
+
+            const dusun =
+                row[3] || "-";
+
+
+            const pesan =
+                row[4] || "-";
+
+
+            /* FORMAT WA */
+
+            let waNumber =
+                String(wa)
+                .replace(
+                    /[^0-9]/g,
+                    ""
+                );
+
+
+            if(
+                waNumber.startsWith("0")
+            ){
+
+                waNumber =
+                    "62" +
+                    waNumber.substring(1);
+
+            }
+
+
+            let waHTML = "-";
+
+
+            if(
+                wa !== "-" &&
+                waNumber !== ""
+            ){
+
+                waHTML = `
+
+                    <a
+                        class="wa-link"
+                        href="https://wa.me/${waNumber}"
+                        target="_blank"
+                    >
+                        ${escapeHTML(wa)}
+                        💬
+                    </a>
+
+                `;
+
+            }
+
+
+            /* BUAT BARIS */
+
+            const tr =
+                document.createElement("tr");
+
+
+            tr.innerHTML = `
+
+                <td>
+                    ${escapeHTML(tanggal)}
+                </td>
+
+                <td>
+                    <strong>
+                        ${escapeHTML(nama)}
+                    </strong>
+                </td>
+
+                <td>
+                    ${waHTML}
+                </td>
+
+                <td>
+                    ${escapeHTML(dusun)}
+                </td>
+
+                <td>
+                    ${escapeHTML(pesan)}
+                </td>
+
+            `;
+
+
+            tableBody.appendChild(tr);
+
+        }
+
+
+        /* JIKA KOSONG */
+
+        if(
+            tableBody.children.length === 0
+        ){
+
+            tableBody.innerHTML = `
+
+                <tr>
+
+                    <td
+                        colspan="5"
+                        class="loading"
+                    >
+                        📭 Belum ada pesan masuk.
+                    </td>
+
+                </tr>
+
+            `;
+
+        }
+
+    })
+
+
+    .catch(function(error){
+
+        console.error(error);
+
+
+        tableBody.innerHTML = `
+
+            <tr>
+
+                <td
+                    colspan="5"
+                    class="loading"
+                    style="color:#c0392b;"
+                >
+
+                    ❌ Gagal mengambil data.
+
+                    <br><br>
+
+                    Periksa koneksi Google Apps Script.
+
+                </td>
+
+            </tr>
+
+        `;
+
+    });
+
+}
+
+
+
+/* ==================================================
+   PENCARIAN
+================================================== */
+
+function filterTable(){
+
+    const input =
+        document.getElementById(
+            "searchInput"
+        );
+
+
+    const filter =
+        input.value.toLowerCase();
+
+
+    const rows =
+        document.querySelectorAll(
+            "#dataTable tbody tr"
+        );
+
+
+    rows.forEach(function(row){
+
+        if(!row.children[1]){
+
+            return;
+
+        }
+
+
+        const nama =
+            row.children[1]
+            .textContent
+            .toLowerCase();
+
+
+        if(
+            nama.includes(filter)
+        ){
+
+            row.style.display = "";
+
+        }
+
+        else{
+
+            row.style.display = "none";
+
+        }
+
+    });
+
+}
+
+
+
+/* ==================================================
+   AMANKAN TAMPILAN DATA
+================================================== */
+
+function escapeHTML(text){
+
+    return String(text)
+
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+
+        .replace(
+            /</g,
+            "&lt;"
+        )
+
+        .replace(
+            />/g,
+            "&gt;"
+        )
+
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
 </script>
+
 
 </body>
 </html>
