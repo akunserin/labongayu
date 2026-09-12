@@ -1,17 +1,12 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Admin Desa Matang Labong</title>
 
 <style>
-
-/* =========================
-   DASAR
-========================= */
 
 *{
     margin:0;
@@ -46,29 +41,21 @@ body{
     z-index:9999;
 }
 
-
 .login-box{
     width:100%;
     max-width:390px;
-
-    background:#ffffff;
+    background:#fff;
     border-radius:26px;
-
     padding:30px 25px;
-
     text-align:center;
-
     position:relative;
 
-    box-shadow:
-        0 20px 50px rgba(0,0,0,.25);
+    box-shadow:0 20px 50px rgba(0,0,0,.25);
 
     animation:muncul .3s ease;
 }
 
-
 @keyframes muncul{
-
     from{
         opacity:0;
         transform:translateY(25px) scale(.95);
@@ -78,20 +65,13 @@ body{
         opacity:1;
         transform:translateY(0) scale(1);
     }
-
 }
-
-
-/* ICON LOGIN */
 
 .login-icon{
     width:75px;
     height:75px;
-
     margin:0 auto 15px;
-
     border-radius:22px;
-
     background:#e3f2e6;
 
     display:flex;
@@ -101,13 +81,11 @@ body{
     font-size:38px;
 }
 
-
 .login-box h2{
     color:#1f5c3a;
     font-size:24px;
     margin-bottom:5px;
 }
-
 
 .login-box p{
     color:#7a877f;
@@ -115,12 +93,8 @@ body{
     margin-bottom:25px;
 }
 
-
-/* TOMBOL X LOGIN */
-
 .login-close{
     position:absolute;
-
     right:17px;
     top:17px;
 
@@ -139,18 +113,13 @@ body{
     cursor:pointer;
 }
 
-
 .login-close:hover{
     background:#28734b;
     color:white;
 }
 
-
-/* LABEL */
-
 .login-box label{
     display:block;
-
     text-align:left;
 
     font-size:14px;
@@ -161,28 +130,20 @@ body{
     margin-bottom:8px;
 }
 
-
-/* PASSWORD */
-
 .password-box{
     width:100%;
-
     display:flex;
 
     border:2px solid #dce9df;
-
     border-radius:14px;
 
     overflow:hidden;
-
     margin-bottom:8px;
 }
-
 
 .password-box:focus-within{
     border-color:#28734b;
 }
-
 
 .password-box input{
     flex:1;
@@ -193,14 +154,11 @@ body{
     padding:14px;
 
     font-size:15px;
-
     min-width:0;
 }
 
-
 .password-box button{
     border:none;
-
     background:white;
 
     padding:0 14px;
@@ -209,9 +167,6 @@ body{
 
     cursor:pointer;
 }
-
-
-/* PESAN ERROR */
 
 .error-message{
     min-height:22px;
@@ -225,9 +180,6 @@ body{
     margin-bottom:5px;
 }
 
-
-/* TOMBOL MASUK */
-
 .login-button{
     width:100%;
 
@@ -238,11 +190,9 @@ body{
     border-radius:14px;
 
     background:#28734b;
-
     color:white;
 
     font-size:15px;
-
     font-weight:bold;
 
     cursor:pointer;
@@ -250,13 +200,9 @@ body{
     margin-top:4px;
 }
 
-
 .login-button:hover{
     background:#1f5c3a;
 }
-
-
-/* TOMBOL BERANDA */
 
 .home-button{
     width:100%;
@@ -275,7 +221,6 @@ body{
 
     margin-top:3px;
 }
-
 
 .home-button:hover{
     text-decoration:underline;
@@ -298,18 +243,13 @@ body{
 
     padding:25px;
 
-    box-shadow:
-        0 10px 35px rgba(31,92,58,.15);
+    box-shadow:0 10px 35px rgba(31,92,58,.15);
 
     position:relative;
 }
 
-
-/* HEADER */
-
 .header{
     display:flex;
-
     align-items:center;
 
     gap:13px;
@@ -318,7 +258,6 @@ body{
 
     margin-bottom:23px;
 }
-
 
 .logo{
     width:55px;
@@ -337,24 +276,17 @@ body{
     flex-shrink:0;
 }
 
-
 .header h1{
     color:#1f5c3a;
-
     font-size:24px;
 
     margin-bottom:4px;
 }
 
-
 .subtitle{
     color:#718078;
-
     font-size:14px;
 }
-
-
-/* TOMBOL X DASHBOARD */
 
 .btn-close{
     position:absolute;
@@ -366,11 +298,9 @@ body{
     height:40px;
 
     border:none;
-
     border-radius:50%;
 
     background:#28734b;
-
     color:white;
 
     font-size:25px;
@@ -384,13 +314,14 @@ body{
     cursor:pointer;
 }
 
-
 .btn-close:hover{
     background:#1f5c3a;
 }
 
 
-/* INFO */
+/* =========================
+   INFO
+========================= */
 
 .info{
     background:#edf7ef;
@@ -410,7 +341,6 @@ body{
     line-height:1.6;
 }
 
-
 .info strong{
     color:#1f5c3a;
 }
@@ -422,12 +352,10 @@ body{
 
 .actions{
     display:flex;
-
     gap:10px;
 
     margin-bottom:20px;
 }
-
 
 .search{
     flex:1;
@@ -443,11 +371,9 @@ body{
     font-size:14px;
 }
 
-
 .search:focus{
     border-color:#28734b;
 }
-
 
 .btn-refresh{
     border:none;
@@ -464,7 +390,6 @@ body{
 
     cursor:pointer;
 }
-
 
 .btn-refresh:hover{
     background:#1f5c3a;
@@ -485,7 +410,6 @@ body{
     border:1px solid #dfeae2;
 }
 
-
 table{
     width:100%;
 
@@ -493,7 +417,6 @@ table{
 
     border-collapse:collapse;
 }
-
 
 th{
     background:#28734b;
@@ -507,7 +430,6 @@ th{
     font-size:14px;
 }
 
-
 td{
     padding:13px;
 
@@ -518,11 +440,9 @@ td{
     vertical-align:top;
 }
 
-
 tr:hover td{
     background:#f3f9f4;
 }
-
 
 .loading{
     text-align:center;
@@ -533,7 +453,9 @@ tr:hover td{
 }
 
 
-/* WHATSAPP */
+/* =========================
+   WHATSAPP
+========================= */
 
 .wa-link{
     color:#168447;
@@ -543,13 +465,14 @@ tr:hover td{
     font-weight:bold;
 }
 
-
 .wa-link:hover{
     text-decoration:underline;
 }
 
 
-/* FOOTER */
+/* =========================
+   FOOTER
+========================= */
 
 .footer{
     text-align:center;
@@ -562,7 +485,6 @@ tr:hover td{
 
     line-height:1.7;
 }
-
 
 .footer strong{
     color:#28734b;
@@ -579,18 +501,15 @@ tr:hover td{
         padding:10px;
     }
 
-
     .container{
         padding:18px;
 
         border-radius:20px;
     }
 
-
     .header h1{
         font-size:20px;
     }
-
 
     .logo{
         width:47px;
@@ -599,23 +518,18 @@ tr:hover td{
         font-size:24px;
     }
 
-
     .actions{
         flex-direction:column;
     }
 
-
     .search{
         width:100%;
-
         height:45px;
     }
-
 
     .btn-refresh{
         height:45px;
     }
-
 
     .info{
         font-size:13px;
@@ -624,7 +538,6 @@ tr:hover td{
 }
 
 </style>
-
 </head>
 
 
@@ -639,8 +552,7 @@ tr:hover td{
 
     <div class="login-box">
 
-
-        <!-- X -->
+        <!-- TOMBOL X -->
 
         <button
             class="login-close"
@@ -705,7 +617,7 @@ tr:hover td{
         ></div>
 
 
-        <!-- LOGIN -->
+        <!-- TOMBOL MASUK -->
 
         <button
             class="login-button"
@@ -715,7 +627,7 @@ tr:hover td{
         </button>
 
 
-        <!-- HOME -->
+        <!-- KEMBALI -->
 
         <button
             class="home-button"
@@ -723,7 +635,6 @@ tr:hover td{
         >
             ← Kembali ke Beranda
         </button>
-
 
     </div>
 
@@ -746,7 +657,6 @@ tr:hover td{
 
     <div class="header">
 
-
         <div class="logo">
             🌿
         </div>
@@ -758,7 +668,6 @@ tr:hover td{
                 Dashboard Admin Desa
             </h1>
 
-
             <div class="subtitle">
                 Desa Matang Labong • Kecamatan Tebas
             </div>
@@ -768,7 +677,7 @@ tr:hover td{
     </div>
 
 
-    <!-- X -->
+    <!-- TOMBOL X -->
 
     <a
         href="index.html"
@@ -777,7 +686,6 @@ tr:hover td{
     >
         ×
     </a>
-
 
 
     <!-- INFO -->
@@ -799,11 +707,9 @@ tr:hover td{
     </div>
 
 
-
-    <!-- SEARCH -->
+    <!-- SEARCH + REFRESH -->
 
     <div class="actions">
-
 
         <input
             type="text"
@@ -821,17 +727,14 @@ tr:hover td{
             🔄 Refresh Data
         </button>
 
-
     </div>
 
 
-
-    <!-- TABLE -->
+    <!-- TABEL DATA -->
 
     <div class="table-wrapper">
 
         <table id="dataTable">
-
 
             <thead>
 
@@ -877,11 +780,9 @@ tr:hover td{
 
             </tbody>
 
-
         </table>
 
     </div>
-
 
 
     <!-- FOOTER -->
@@ -922,9 +823,8 @@ const scriptURL =
 "https://script.google.com/macros/s/AKfycbzINn-UFss3UnA714uE-RhbbskQhBJ34NL_sDKQ2ACo3-N7PtWG6-aaYitiVU0Jh_voqw/exec";
 
 
-
 /* ==================================================
-   LOGIN
+   LOGIN ADMIN
 ================================================== */
 
 function loginAdmin(){
@@ -985,9 +885,8 @@ function loginAdmin(){
 }
 
 
-
 /* ==================================================
-   ENTER UNTUK LOGIN
+   LOGIN DENGAN ENTER
 ================================================== */
 
 function enterLogin(event){
@@ -999,7 +898,6 @@ function enterLogin(event){
     }
 
 }
-
 
 
 /* ==================================================
@@ -1039,7 +937,6 @@ function togglePassword(){
 }
 
 
-
 /* ==================================================
    KEMBALI KE BERANDA
 ================================================== */
@@ -1052,9 +949,8 @@ function goHome(){
 }
 
 
-
 /* ==================================================
-   AMBIL DATA GOOGLE SHEETS
+   AMBIL DATA DARI GOOGLE SHEETS
 ================================================== */
 
 function loadData(){
@@ -1101,7 +997,7 @@ function loadData(){
     .then(function(data){
 
 
-        /* TIDAK ADA DATA */
+        /* JIKA TIDAK ADA DATA */
 
         if(
             !data ||
@@ -1152,7 +1048,7 @@ function loadData(){
             }
 
 
-            /* DATA */
+            /* WAKTU */
 
             let tanggal =
                 row[0] || "-";
@@ -1176,6 +1072,8 @@ function loadData(){
             }
 
 
+            /* DATA */
+
             const nama =
                 row[1] || "-";
 
@@ -1192,7 +1090,7 @@ function loadData(){
                 row[4] || "-";
 
 
-            /* FORMAT WA */
+            /* FORMAT NOMOR WA */
 
             let waNumber =
                 String(wa)
@@ -1275,7 +1173,7 @@ function loadData(){
         }
 
 
-        /* JIKA KOSONG */
+        /* JIKA DATA KOSONG */
 
         if(
             tableBody.children.length === 0
@@ -1333,9 +1231,8 @@ function loadData(){
 }
 
 
-
 /* ==================================================
-   PENCARIAN
+   PENCARIAN NAMA
 ================================================== */
 
 function filterTable(){
@@ -1390,9 +1287,8 @@ function filterTable(){
 }
 
 
-
 /* ==================================================
-   AMANKAN TAMPILAN DATA
+   AMANKAN DATA HTML
 ================================================== */
 
 function escapeHTML(text){
