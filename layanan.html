@@ -3,17 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulir Layanan Desa</title>
+    <title>Formulir Layanan Desa - Desa Matang Labong</title>
     <style>
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', Arial, sans-serif;
         }
         body {
-            background-color: #f4f7f6;
-            padding: 20px;
+            background: linear-gradient(135deg, #e8f5eb, #d4ead9);
+            color: #294333;
+            padding: 15px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -21,103 +22,131 @@
         }
         .container {
             width: 100%;
-            max-width: 500px;
+            max-width: 480px;
             background: #ffffff;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            padding: 30px 25px;
+            border-radius: 24px;
+            box-shadow: 0 10px 35px rgba(31, 92, 58, 0.15);
             position: relative;
         }
         .btn-close {
             position: absolute;
             top: 20px;
             right: 20px;
-            background: #e74c3c;
+            background: #28734b;
             color: white;
             border: none;
-            width: 32px;
-            height: 32px;
+            width: 36px;
+            height: 36px;
             border-radius: 50%;
-            font-size: 16px;
+            font-size: 22px;
             font-weight: bold;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
             text-decoration: none;
+            transition: 0.2s;
         }
         .btn-close:hover {
-            background: #c0392b;
+            background: #1f5c3a;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 25px;
+            padding-right: 25px;
+        }
+        .header-icon {
+            width: 65px;
+            height: 65px;
+            background: #e2f1e5;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            margin: 0 auto 12px;
         }
         h2 {
-            color: #2c3e50;
-            margin-bottom: 20px;
-            text-align: center;
-            padding-right: 30px;
+            color: #1f5c3a;
+            font-size: 22px;
+            margin-bottom: 4px;
+        }
+        p.subtitle {
+            color: #718078;
+            font-size: 13px;
         }
         .form-group {
-            margin-bottom: 15px;
+            margin-bottom: 16px;
         }
         label {
             display: block;
             margin-bottom: 6px;
-            color: #333;
+            color: #365541;
             font-weight: 600;
+            font-size: 14px;
         }
         input[type="text"],
         input[type="tel"],
         textarea {
             width: 100%;
-            padding: 10px 12px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
+            padding: 12px 14px;
+            border: 2px solid #dce9df;
+            border-radius: 12px;
             font-size: 14px;
             outline: none;
+            transition: 0.2s;
         }
         input:focus, textarea:focus {
-            border-color: #27ae60;
+            border-color: #28734b;
         }
         textarea {
             resize: vertical;
-            height: 100px;
+            height: 110px;
         }
         .btn-submit {
             width: 100%;
-            padding: 12px;
-            background-color: #27ae60;
+            padding: 14px;
+            background-color: #28734b;
             color: white;
             border: none;
-            border-radius: 6px;
-            font-size: 16px;
+            border-radius: 12px;
+            font-size: 15px;
             font-weight: bold;
             cursor: pointer;
-            margin-top: 10px;
+            margin-top: 8px;
+            transition: 0.2s;
         }
         .btn-submit:hover {
-            background-color: #219150;
+            background-color: #1f5c3a;
         }
         .btn-submit:disabled {
-            background-color: #95a5a6;
+            background-color: #a5c4b1;
             cursor: not-allowed;
         }
         #statusMessage {
             margin-top: 15px;
             text-align: center;
-            font-weight: bold;
+            font-size: 14px;
+            font-weight: 600;
         }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <a href="index.html" class="btn-close" title="Kembali ke Beranda">✕</a>
+    <a href="index.html" class="btn-close" title="Kembali ke Beranda">×</a>
     
-    <h2>Formulir Layanan Desa</h2>
+    <div class="header">
+        <div class="header-icon">🌿</div>
+        <h2>Formulir Layanan Desa</h2>
+        <p class="subtitle">Desa Matang Labong • Kecamatan Tebas</p>
+    </div>
 
     <form id="layananForm">
         <div class="form-group">
             <label for="nama">Nama Lengkap</label>
-            <input type="text" id="nama" name="Nama Lengkap" placeholder="Masukkan nama lengkap" required>
+            <input type="text" id="nama" name="Nama Lengkap" placeholder="Masukkan nama lengkap Anda" required>
         </div>
 
         <div class="form-group">
@@ -132,10 +161,10 @@
 
         <div class="form-group">
             <label for="pesan">Keperluan / Pesan</label>
-            <textarea id="pesan" name="Keperluan / Pesan" placeholder="Tuliskan keperluan atau pesan Anda..." required></textarea>
+            <textarea id="pesan" name="Keperluan / Pesan" placeholder="Tuliskan keperluan atau pesan Anda di sini..." required></textarea>
         </div>
 
-        <button type="submit" class="btn-submit" id="btnSubmit">Kirim Pesan</button>
+        <button type="submit" class="btn-submit" id="btnSubmit">📤 Kirim Pesan</button>
     </form>
 
     <div id="statusMessage"></div>
@@ -150,23 +179,23 @@
     form.addEventListener('submit', e => {
         e.preventDefault();
         btnSubmit.disabled = true;
-        btnSubmit.innerText = 'Mengirim...';
-        statusMessage.style.color = '#2980b9';
+        btnSubmit.innerText = '⏳ Mengirim...';
+        statusMessage.style.color = '#28734b';
         statusMessage.innerText = 'Proses mengirim pesan...';
 
         fetch(scriptURL, { method: 'POST', body: new FormData(form) })
             .then(response => {
                 btnSubmit.disabled = false;
-                btnSubmit.innerText = 'Kirim Pesan';
+                btnSubmit.innerText = '📤 Kirim Pesan';
                 statusMessage.style.color = '#27ae60';
-                statusMessage.innerText = 'Pesan berhasil dikirim!';
+                statusMessage.innerText = '✅ Pesan berhasil dikirim!';
                 form.reset();
             })
             .catch(error => {
                 btnSubmit.disabled = false;
-                btnSubmit.innerText = 'Kirim Pesan';
-                statusMessage.style.color = '#e74c3c';
-                statusMessage.innerText = 'Gagal mengirim pesan. Coba lagi.';
+                btnSubmit.innerText = '📤 Kirim Pesan';
+                statusMessage.style.color = '#d64545';
+                statusMessage.innerText = '❌ Gagal mengirim pesan. Coba lagi.';
                 console.error('Error!', error.message);
             });
     });
