@@ -129,6 +129,7 @@
             text-align: center;
             font-size: 14px;
             font-weight: 600;
+            line-height: 1.5;
         }
     </style>
 </head>
@@ -171,7 +172,7 @@
 </div>
 
 <script>
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbzINn-UFss3UnA714uE-RhbbskQhBJ34NL_sDKQ2ACo3-N7PtWG6-aaYitiVU0Jh_voqw/exec';
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbwgr4g-WVQwf8HYxuxhDxpkgp6jYW81LM5Cw9oMXSf2QU4F2JmHvTqbJeXxjaEWm2EJHQ/exec';
     const form = document.getElementById('layananForm');
     const btnSubmit = document.getElementById('btnSubmit');
     const statusMessage = document.getElementById('statusMessage');
@@ -184,12 +185,18 @@
         statusMessage.innerText = 'Proses mengirim pesan...';
 
         fetch(scriptURL, { method: 'POST', body: new FormData(form) })
-            .then(response => {
+            .then(response => response.json())
+            .then(data => {
                 btnSubmit.disabled = false;
                 btnSubmit.innerText = '📤 Kirim Pesan';
-                statusMessage.style.color = '#27ae60';
-                statusMessage.innerText = '✅ Pesan berhasil dikirim!';
-                form.reset();
+                if(data.result === 'success') {
+                    statusMessage.style.color = '#27ae60';
+                    statusMessage.innerHTML = '✅ Pesan berhasil dikirim!<br><strong>Simpan Token Anda: ' + data.token + '</strong>';
+                    form.reset();
+                } else {
+                    statusMessage.style.color = '#d64545';
+                    statusMessage.innerText = '❌ Gagal: ' + data.message;
+                }
             })
             .catch(error => {
                 btnSubmit.disabled = false;
