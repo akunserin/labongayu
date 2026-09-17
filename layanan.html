@@ -14,7 +14,6 @@
         h2 { color: #1f5c3a; font-size: 22px; margin-bottom: 4px; }
         p.subtitle { color: #718078; font-size: 13px; }
         
-        /* TAB MENU */
         .tab-box { display: flex; background: #e8f5eb; border-radius: 12px; padding: 4px; margin-bottom: 20px; }
         .tab-btn { flex: 1; padding: 10px; border: none; background: transparent; color: #28734b; font-weight: bold; font-size: 13px; border-radius: 10px; cursor: pointer; }
         .tab-btn.active { background: #28734b; color: white; }
@@ -33,11 +32,9 @@
         .card-result { background: #f4faf6; border: 2px dashed #28734b; padding: 15px; border-radius: 12px; margin-top: 15px; }
         .badge { display: inline-block; padding: 4px 10px; border-radius: 6px; font-size: 12px; font-weight: bold; background: #e2f1e5; color: #1f5c3a; margin-bottom: 8px; }
 
-        /* Tampilan Kotak Token & Tombol Salin */
         .token-box { background: #e8f5eb; border: 1px solid #a5c4b1; border-radius: 12px; padding: 12px; margin-top: 10px; text-align: center; }
         .token-code { font-size: 20px; font-weight: bold; color: #1f5c3a; letter-spacing: 1px; margin: 4px 0; display: block; }
-        .btn-copy { background: #1f5c3a; color: white; border: none; padding: 8px 16px; border-radius: 8px; font-size: 13px; font-weight: bold; cursor: pointer; margin-top: 6px; transition: 0.2s; }
-        .btn-copy:hover { background: #16432a; }
+        .btn-copy { background: #1f5c3a; color: white; border: none; padding: 8px 16px; border-radius: 8px; font-size: 13px; font-weight: bold; cursor: pointer; margin-top: 6px; }
     </style>
 </head>
 <body>
@@ -51,13 +48,11 @@
         <p class="subtitle">Kirim Aduan & Cek Tanggapan Admin</p>
     </div>
 
-    <!-- Pilihan Tab Menyatu -->
     <div class="tab-box">
         <button class="tab-btn active" onclick="switchTab('kirim')">📤 Kirim Pesan</button>
         <button class="tab-btn" onclick="switchTab('cek')">🔍 Cek Tanggapan Admin</button>
     </div>
 
-    <!-- TAB 1: FORM KIRIM ADUAN -->
     <div id="tabKirim" class="tab-content active">
         <form id="layananForm">
             <div class="form-group">
@@ -81,7 +76,6 @@
         <div id="statusMessage"></div>
     </div>
 
-    <!-- TAB 2: CEK STATUS TOKEN & BALASAN ADMIN -->
     <div id="tabCek" class="tab-content">
         <div class="form-group">
             <label for="tokenInput">Masukkan Kode Token Anda</label>
@@ -108,7 +102,6 @@
         }
     }
 
-    // Kirim Pesan
     const form = document.getElementById('layananForm');
     const btnSubmit = document.getElementById('btnSubmit');
     const statusMessage = document.getElementById('statusMessage');
@@ -149,7 +142,6 @@
             });
     });
 
-    // Fungsi Salin Token Ke Clipboard
     function copyToken(token) {
         navigator.clipboard.writeText(token).then(() => {
             const btn = document.getElementById('copyBtn');
@@ -160,11 +152,10 @@
                 btn.style.backgroundColor = '#1f5c3a';
             }, 2000);
         }).catch(err => {
-            alert('Gagal menyalin token: ' + err);
+            alert('Gagal menyalin: ' + err);
         });
     }
 
-    // Cek Balasan Admin Pakai Token
     function cekStatusToken() {
         const tokenVal = document.getElementById('tokenInput').value.trim();
         const btnCek = document.getElementById('btnCek');
