@@ -7,8 +7,13 @@
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Arial, sans-serif; }
         body { background: #f0f4f1; color: #294333; padding: 15px; display: flex; justify-content: center; align-items: flex-start; min-height: 100vh; }
-        .container { width: 100%; max-width: 600px; background: #ffffff; padding: 20px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); margin-top: 10px; }
-        h2 { color: #1f5c3a; font-size: 20px; margin-bottom: 15px; text-align: center; }
+        .container { width: 100%; max-width: 600px; background: #ffffff; padding: 25px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); margin-top: 10px; position: relative; }
+        
+        /* Tombol Kembali */
+        .btn-close { position: absolute; top: 20px; right: 20px; background: #28734b; color: white; border: none; width: 36px; height: 36px; border-radius: 50%; font-size: 22px; font-weight: bold; text-decoration: none; display: flex; align-items: center; justify-content: center; transition: 0.2s; }
+        .btn-close:hover { background: #1f5c3a; }
+
+        h2 { color: #1f5c3a; font-size: 20px; margin-bottom: 15px; text-align: center; padding-right: 25px; }
         
         .login-box { background: #e8f5eb; padding: 20px; border-radius: 16px; text-align: center; }
         input[type="password"], input[type="text"], select, textarea { width: 100%; padding: 10px 12px; border: 2px solid #dce9df; border-radius: 10px; font-size: 14px; margin-top: 8px; outline: none; }
@@ -30,6 +35,9 @@
 <body>
 
 <div class="container">
+    <!-- Tombol Kembali ke Halaman Utama -->
+    <a href="index.html" class="btn-close" title="Kembali ke Beranda">×</a>
+
     <h2>🛠️ Panel Admin Tanggapan</h2>
 
     <!-- FORM LOGIN ADMIN -->
@@ -49,7 +57,7 @@
 
 <script>
     const scriptURL = 'https://script.google.com/macros/s/AKfycbwhUWmqbiA07mkMWwzRBU9E40K6rUFw1mEw_3DgbCZPMTLJZc-dUF6RmqlfszNzCNIZ/exec';
-    const PASS_ADMIN = "desa123"; // Password sudah diganti jadi desa123
+    const PASS_ADMIN = "desa123";
 
     function loginAdmin() {
         const pass = document.getElementById('passInput').value;
