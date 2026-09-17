@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulir Layanan Desa - Desa Matang Labong</title>
+    <title>Layanan & Cek Status - Desa Matang Labong</title>
     <style>
         * {
             box-sizing: border-box;
@@ -53,19 +53,19 @@
         }
         .header {
             text-align: center;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             padding-right: 25px;
         }
         .header-icon {
-            width: 65px;
-            height: 65px;
+            width: 60px;
+            height: 60px;
             background: #e2f1e5;
             border-radius: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 32px;
-            margin: 0 auto 12px;
+            font-size: 30px;
+            margin: 0 auto 10px;
         }
         h2 {
             color: #1f5c3a;
@@ -75,6 +75,36 @@
         p.subtitle {
             color: #718078;
             font-size: 13px;
+        }
+        /* TAB SYSTEM */
+        .tab-box {
+            display: flex;
+            background: #e8f5eb;
+            border-radius: 12px;
+            padding: 4px;
+            margin-bottom: 20px;
+        }
+        .tab-btn {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            background: transparent;
+            color: #28734b;
+            font-weight: bold;
+            font-size: 13px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .tab-btn.active {
+            background: #28734b;
+            color: white;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
         }
         .form-group {
             margin-bottom: 16px;
@@ -102,7 +132,7 @@
         }
         textarea {
             resize: vertical;
-            height: 110px;
+            height: 100px;
         }
         .btn-submit {
             width: 100%;
@@ -124,12 +154,27 @@
             background-color: #a5c4b1;
             cursor: not-allowed;
         }
-        #statusMessage {
+        #statusMessage, #cekResult {
             margin-top: 15px;
-            text-align: center;
             font-size: 14px;
-            font-weight: 600;
             line-height: 1.5;
+        }
+        .card-result {
+            background: #f4faf6;
+            border: 2px dashed #28734b;
+            padding: 15px;
+            border-radius: 12px;
+            margin-top: 15px;
+        }
+        .badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: bold;
+            background: #e2f1e5;
+            color: #1f5c3a;
+            margin-bottom: 8px;
         }
     </style>
 </head>
@@ -140,39 +185,73 @@
     
     <div class="header">
         <div class="header-icon">🌿</div>
-        <h2>Formulir Layanan Desa</h2>
-        <p class="subtitle">Desa Matang Labong • Kecamatan Tebas</p>
+        <h2>Layanan Desa Matang Labong</h2>
+        <p class="subtitle">Kirim Aduan & Cek Tanggapan Admin</p>
     </div>
 
-    <form id="layananForm">
+    <!-- Tombol Pilihan Tab -->
+    <div class="tab-box">
+        <button class="tab-btn active" onclick="switchTab('kirim')">📤 Kirim Pesan</button>
+        <button class="tab-btn" onclick="switchTab('cek')">🔍 Cek Status Token</button>
+    </div>
+
+    <!-- TAB 1: FORM KIRIM ADUAN -->
+    <div id="tabKirim" class="tab-content active">
+        <form id="layananForm">
+            <div class="form-group">
+                <label for="nama">Nama Lengkap</label>
+                <input type="text" id="nama" name="Nama Lengkap" placeholder="Masukkan nama lengkap Anda" required>
+            </div>
+
+            <div class="form-group">
+                <label for="wa">Nomor WhatsApp</label>
+                <input type="tel" id="wa" name="Nomor WA" placeholder="Contoh: 081234567890" required>
+            </div>
+
+            <div class="form-group">
+                <label for="dusun">Dusun / RT / RW</label>
+                <input type="text" id="dusun" name="Dusun / RT" placeholder="Contoh: Dusun II / RT 03" required>
+            </div>
+
+            <div class="form-group">
+                <label for="pesan">Keperluan / Pesan</label>
+                <textarea id="pesan" name="Keperluan / Pesan" placeholder="Tuliskan keperluan atau pesan Anda di sini..." required></textarea>
+            </div>
+
+            <button type="submit" class="btn-submit" id="btnSubmit">📤 Kirim Pesan</button>
+        </form>
+        <div id="statusMessage"></div>
+    </div>
+
+    <!-- TAB 2: CEK STATUS TOKEN -->
+    <div id="tabCek" class="tab-content">
         <div class="form-group">
-            <label for="nama">Nama Lengkap</label>
-            <input type="text" id="nama" name="Nama Lengkap" placeholder="Masukkan nama lengkap Anda" required>
+            <label for="tokenInput">Masukkan Kode Token Anda</label>
+            <input type="text" id="tokenInput" placeholder="Contoh: MLB-4829" style="text-transform: uppercase;">
         </div>
-
-        <div class="form-group">
-            <label for="wa">Nomor WhatsApp</label>
-            <input type="tel" id="wa" name="Nomor WA" placeholder="Contoh: 081234567890" required>
-        </div>
-
-        <div class="form-group">
-            <label for="dusun">Dusun / RT / RW</label>
-            <input type="text" id="dusun" name="Dusun / RT" placeholder="Contoh: Dusun II / RT 03" required>
-        </div>
-
-        <div class="form-group">
-            <label for="pesan">Keperluan / Pesan</label>
-            <textarea id="pesan" name="Keperluan / Pesan" placeholder="Tuliskan keperluan atau pesan Anda di sini..." required></textarea>
-        </div>
-
-        <button type="submit" class="btn-submit" id="btnSubmit">📤 Kirim Pesan</button>
-    </form>
-
-    <div id="statusMessage"></div>
+        <button type="button" class="btn-submit" id="btnCek" onclick="cekStatusToken()">🔍 Cari Tanggapan</button>
+        <div id="cekResult"></div>
+    </div>
 </div>
 
 <script>
     const scriptURL = 'https://script.google.com/macros/s/AKfycbwgr4g-WVQwf8HYxuxhDxpkgp6jYW81LM5Cw9oMXSf2QU4F2JmHvTqbJeXxjaEWm2EJHQ/exec';
+
+    // Pindah Tab
+    function switchTab(tabName) {
+        document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+
+        if (tabName === 'kirim') {
+            document.querySelectorAll('.tab-btn')[0].classList.add('active');
+            document.getElementById('tabKirim').classList.add('active');
+        } else {
+            document.querySelectorAll('.tab-btn')[1].classList.add('active');
+            document.getElementById('tabCek').classList.add('active');
+        }
+    }
+
+    // Kirim Formulir
     const form = document.getElementById('layananForm');
     const btnSubmit = document.getElementById('btnSubmit');
     const statusMessage = document.getElementById('statusMessage');
@@ -191,7 +270,7 @@
                 btnSubmit.innerText = '📤 Kirim Pesan';
                 if(data.result === 'success') {
                     statusMessage.style.color = '#27ae60';
-                    statusMessage.innerHTML = '✅ Pesan berhasil dikirim!<br><strong>Simpan Token Anda: ' + data.token + '</strong>';
+                    statusMessage.innerHTML = '✅ Pesan berhasil dikirim!<br><strong>Simpan Token Anda: <span style="color:#1f5c3a; font-size:16px;">' + data.token + '</span></strong>';
                     form.reset();
                 } else {
                     statusMessage.style.color = '#d64545';
@@ -203,9 +282,54 @@
                 btnSubmit.innerText = '📤 Kirim Pesan';
                 statusMessage.style.color = '#d64545';
                 statusMessage.innerText = '❌ Gagal mengirim pesan. Coba lagi.';
-                console.error('Error!', error.message);
             });
     });
+
+    // Cek Status Token
+    function cekStatusToken() {
+        const tokenVal = document.getElementById('tokenInput').value.trim();
+        const btnCek = document.getElementById('btnCek');
+        const cekResult = document.getElementById('cekResult');
+
+        if (!tokenVal) {
+            cekResult.innerHTML = '<span style="color:#d64545;">Mohon masukkan kode token!</span>';
+            return;
+        }
+
+        btnCek.disabled = true;
+        btnCek.innerText = '⏳ Memeriksa...';
+        cekResult.innerHTML = 'Mencari data token...';
+
+        const formData = new FormData();
+        formData.append('action', 'cekStatus');
+        formData.append('token', tokenVal);
+
+        fetch(scriptURL, { method: 'POST', body: formData })
+            .then(res => res.json())
+            .then(data => {
+                btnCek.disabled = false;
+                btnCek.innerText = '🔍 Cari Tanggapan';
+                if (data.result === 'success') {
+                    cekResult.innerHTML = `
+                        <div class="card-result">
+                            <span class="badge">Status: ${data.status}</span>
+                            <p><strong>Nama:</strong> ${data.nama}</p>
+                            <p><strong>Pesan Kamu:</strong> ${data.pesan}</p>
+                            <hr style="margin:8px 0; border:0; border-top:1px solid #dce9df;">
+                            <p><strong>Tanggapan Admin:</strong></p>
+                            <p style="color:#1f5c3a; font-weight:600;">${data.tanggapan}</p>
+                        </div>
+                    `;
+                } else {
+                    cekResult.innerHTML = `<span style="color:#d64545;">❌ ${data.message}</span>`;
+                }
+            })
+            .catch(err => {
+                btnCek.disabled = false;
+                btnCek.innerText = '🔍 Cari Tanggapan';
+                cekResult.innerHTML = '<span style="color:#d64545;">❌ Terjadi kesalahan koneksi.</span>';
+            });
+    }
 </script>
 
 </body>
