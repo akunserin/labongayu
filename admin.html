@@ -1,1329 +1,155 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Admin Desa Matang Labong</title>
-
-<style>
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:"Segoe UI",Arial,sans-serif;
-}
-
-body{
-    min-height:100vh;
-    background:linear-gradient(135deg,#e8f5eb,#d4ead9);
-    color:#294333;
-    padding:15px;
-}
-
-
-/* =========================
-   LOGIN
-========================= */
-
-.login-overlay{
-    position:fixed;
-    inset:0;
-    background:rgba(20,60,38,.68);
-    backdrop-filter:blur(7px);
-
-    display:flex;
-    justify-content:center;
-    align-items:center;
-
-    padding:20px;
-    z-index:9999;
-}
-
-.login-box{
-    width:100%;
-    max-width:390px;
-    background:#fff;
-    border-radius:26px;
-    padding:30px 25px;
-    text-align:center;
-    position:relative;
-
-    box-shadow:0 20px 50px rgba(0,0,0,.25);
-
-    animation:muncul .3s ease;
-}
-
-@keyframes muncul{
-    from{
-        opacity:0;
-        transform:translateY(25px) scale(.95);
-    }
-
-    to{
-        opacity:1;
-        transform:translateY(0) scale(1);
-    }
-}
-
-.login-icon{
-    width:75px;
-    height:75px;
-    margin:0 auto 15px;
-    border-radius:22px;
-    background:#e3f2e6;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    font-size:38px;
-}
-
-.login-box h2{
-    color:#1f5c3a;
-    font-size:24px;
-    margin-bottom:5px;
-}
-
-.login-box p{
-    color:#7a877f;
-    font-size:14px;
-    margin-bottom:25px;
-}
-
-.login-close{
-    position:absolute;
-    right:17px;
-    top:17px;
-
-    width:38px;
-    height:38px;
-
-    border:none;
-    border-radius:50%;
-
-    background:#e9f4eb;
-    color:#28734b;
-
-    font-size:25px;
-    font-weight:bold;
-
-    cursor:pointer;
-}
-
-.login-close:hover{
-    background:#28734b;
-    color:white;
-}
-
-.login-box label{
-    display:block;
-    text-align:left;
-
-    font-size:14px;
-    font-weight:600;
-
-    color:#365541;
-
-    margin-bottom:8px;
-}
-
-.password-box{
-    width:100%;
-    display:flex;
-
-    border:2px solid #dce9df;
-    border-radius:14px;
-
-    overflow:hidden;
-    margin-bottom:8px;
-}
-
-.password-box:focus-within{
-    border-color:#28734b;
-}
-
-.password-box input{
-    flex:1;
-
-    border:none;
-    outline:none;
-
-    padding:14px;
-
-    font-size:15px;
-    min-width:0;
-}
-
-.password-box button{
-    border:none;
-    background:white;
-
-    padding:0 14px;
-
-    font-size:18px;
-
-    cursor:pointer;
-}
-
-.error-message{
-    min-height:22px;
-
-    color:#d64545;
-
-    font-size:13px;
-
-    text-align:left;
-
-    margin-bottom:5px;
-}
-
-.login-button{
-    width:100%;
-
-    border:none;
-
-    padding:14px;
-
-    border-radius:14px;
-
-    background:#28734b;
-    color:white;
-
-    font-size:15px;
-    font-weight:bold;
-
-    cursor:pointer;
-
-    margin-top:4px;
-}
-
-.login-button:hover{
-    background:#1f5c3a;
-}
-
-.home-button{
-    width:100%;
-
-    border:none;
-
-    background:transparent;
-
-    color:#28734b;
-
-    padding:13px;
-
-    font-size:14px;
-
-    cursor:pointer;
-
-    margin-top:3px;
-}
-
-.home-button:hover{
-    text-decoration:underline;
-}
-
-
-/* =========================
-   DASHBOARD
-========================= */
-
-.container{
-    width:100%;
-    max-width:1100px;
-
-    margin:auto;
-
-    background:white;
-
-    border-radius:24px;
-
-    padding:25px;
-
-    box-shadow:0 10px 35px rgba(31,92,58,.15);
-
-    position:relative;
-}
-
-.header{
-    display:flex;
-    align-items:center;
-
-    gap:13px;
-
-    padding-right:50px;
-
-    margin-bottom:23px;
-}
-
-.logo{
-    width:55px;
-    height:55px;
-
-    border-radius:17px;
-
-    background:#e2f1e5;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    font-size:29px;
-
-    flex-shrink:0;
-}
-
-.header h1{
-    color:#1f5c3a;
-    font-size:24px;
-
-    margin-bottom:4px;
-}
-
-.subtitle{
-    color:#718078;
-    font-size:14px;
-}
-
-.btn-close{
-    position:absolute;
-
-    right:20px;
-    top:20px;
-
-    width:40px;
-    height:40px;
-
-    border:none;
-    border-radius:50%;
-
-    background:#28734b;
-    color:white;
-
-    font-size:25px;
-
-    text-decoration:none;
-
-    display:flex;
-    justify-content:center;
-    align-items:center;
-
-    cursor:pointer;
-}
-
-.btn-close:hover{
-    background:#1f5c3a;
-}
-
-
-/* =========================
-   INFO
-========================= */
-
-.info{
-    background:#edf7ef;
-
-    border-left:5px solid #28734b;
-
-    border-radius:13px;
-
-    padding:15px;
-
-    margin-bottom:20px;
-
-    color:#496454;
-
-    font-size:14px;
-
-    line-height:1.6;
-}
-
-.info strong{
-    color:#1f5c3a;
-}
-
-
-/* =========================
-   SEARCH
-========================= */
-
-.actions{
-    display:flex;
-    gap:10px;
-
-    margin-bottom:20px;
-}
-
-.search{
-    flex:1;
-
-    border:2px solid #dce9df;
-
-    padding:13px 15px;
-
-    border-radius:13px;
-
-    outline:none;
-
-    font-size:14px;
-}
-
-.search:focus{
-    border-color:#28734b;
-}
-
-.btn-refresh{
-    border:none;
-
-    background:#28734b;
-
-    color:white;
-
-    padding:0 18px;
-
-    border-radius:13px;
-
-    font-weight:bold;
-
-    cursor:pointer;
-}
-
-.btn-refresh:hover{
-    background:#1f5c3a;
-}
-
-
-/* =========================
-   TABEL
-========================= */
-
-.table-wrapper{
-    width:100%;
-
-    overflow-x:auto;
-
-    border-radius:15px;
-
-    border:1px solid #dfeae2;
-}
-
-table{
-    width:100%;
-
-    min-width:750px;
-
-    border-collapse:collapse;
-}
-
-th{
-    background:#28734b;
-
-    color:white;
-
-    padding:14px;
-
-    text-align:left;
-
-    font-size:14px;
-}
-
-td{
-    padding:13px;
-
-    border-bottom:1px solid #e5eee8;
-
-    font-size:14px;
-
-    vertical-align:top;
-}
-
-tr:hover td{
-    background:#f3f9f4;
-}
-
-.loading{
-    text-align:center;
-
-    padding:30px;
-
-    color:#718078;
-}
-
-
-/* =========================
-   WHATSAPP
-========================= */
-
-.wa-link{
-    color:#168447;
-
-    text-decoration:none;
-
-    font-weight:bold;
-}
-
-.wa-link:hover{
-    text-decoration:underline;
-}
-
-
-/* =========================
-   FOOTER
-========================= */
-
-.footer{
-    text-align:center;
-
-    margin-top:22px;
-
-    color:#718078;
-
-    font-size:13px;
-
-    line-height:1.7;
-}
-
-.footer strong{
-    color:#28734b;
-}
-
-
-/* =========================
-   HP
-========================= */
-
-@media(max-width:600px){
-
-    body{
-        padding:10px;
-    }
-
-    .container{
-        padding:18px;
-
-        border-radius:20px;
-    }
-
-    .header h1{
-        font-size:20px;
-    }
-
-    .logo{
-        width:47px;
-        height:47px;
-
-        font-size:24px;
-    }
-
-    .actions{
-        flex-direction:column;
-    }
-
-    .search{
-        width:100%;
-        height:45px;
-    }
-
-    .btn-refresh{
-        height:45px;
-    }
-
-    .info{
-        font-size:13px;
-    }
-
-}
-
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Admin - Desa Matang Labong</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Arial, sans-serif; }
+        body { background: #f0f4f1; color: #294333; padding: 15px; display: flex; justify-content: center; align-items: flex-start; min-height: 100vh; }
+        .container { width: 100%; max-width: 600px; background: #ffffff; padding: 20px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); margin-top: 10px; }
+        h2 { color: #1f5c3a; font-size: 20px; margin-bottom: 15px; text-align: center; }
+        
+        .login-box { background: #e8f5eb; padding: 20px; border-radius: 16px; text-align: center; }
+        input[type="password"], input[type="text"], select, textarea { width: 100%; padding: 10px 12px; border: 2px solid #dce9df; border-radius: 10px; font-size: 14px; margin-top: 8px; outline: none; }
+        textarea { height: 70px; resize: vertical; }
+        
+        .btn { width: 100%; padding: 12px; background-color: #28734b; color: white; border: none; border-radius: 10px; font-weight: bold; font-size: 14px; cursor: pointer; margin-top: 10px; }
+        .btn:disabled { background-color: #a5c4b1; }
+        
+        .card { background: #f9fbf9; border: 1px solid #dce9df; padding: 15px; border-radius: 14px; margin-bottom: 15px; }
+        .card-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed #ccc; padding-bottom: 8px; margin-bottom: 8px; }
+        .token-tag { background: #1f5c3a; color: white; padding: 3px 8px; border-radius: 6px; font-size: 12px; font-weight: bold; }
+        .status-badge { font-size: 12px; font-weight: bold; color: #d68910; }
+        .status-done { color: #27ae60; }
+        
+        .pesan-text { background: #ffffff; border-left: 3px solid #28734b; padding: 8px; font-size: 13px; margin: 8px 0; }
+        .reply-box { margin-top: 10px; background: #edf7f0; padding: 10px; border-radius: 10px; }
+    </style>
 </head>
-
-
 <body>
 
+<div class="container">
+    <h2>🛠️ Panel Admin Tanggapan</h2>
 
-<!-- ==================================================
-     LOGIN ADMIN
-================================================== -->
-
-<div class="login-overlay" id="loginModal">
-
-    <div class="login-box">
-
-        <!-- TOMBOL X -->
-
-        <button
-            class="login-close"
-            onclick="goHome()"
-            title="Kembali ke Beranda"
-        >
-            ×
-        </button>
-
-
-        <!-- ICON -->
-
-        <div class="login-icon">
-            🌿
-        </div>
-
-
-        <h2>
-            Login Admin Desa
-        </h2>
-
-
-        <p>
-            Desa Matang Labong
-        </p>
-
-
-        <!-- PASSWORD -->
-
-        <label>
-            Kata Sandi
-        </label>
-
-
-        <div class="password-box">
-
-            <input
-                type="password"
-                id="passwordInput"
-                placeholder="Masukkan kata sandi"
-                autocomplete="off"
-                onkeydown="enterLogin(event)"
-            >
-
-
-            <button
-                type="button"
-                id="eyeButton"
-                onclick="togglePassword()"
-            >
-                👁️
-            </button>
-
-        </div>
-
-
-        <!-- ERROR -->
-
-        <div
-            class="error-message"
-            id="errorMessage"
-        ></div>
-
-
-        <!-- TOMBOL MASUK -->
-
-        <button
-            class="login-button"
-            onclick="loginAdmin()"
-        >
-            🔐 Masuk Admin
-        </button>
-
-
-        <!-- KEMBALI -->
-
-        <button
-            class="home-button"
-            onclick="goHome()"
-        >
-            ← Kembali ke Beranda
-        </button>
-
+    <!-- FORM LOGIN ADMIN -->
+    <div id="loginSection" class="login-box">
+        <h3>Masukan Sandi Admin</h3>
+        <input type="password" id="passInput" placeholder="Sandi Admin">
+        <button class="btn" onclick="loginAdmin()">Masuk Panel</button>
+        <p id="loginError" style="color: red; font-size: 12px; margin-top: 8px;"></p>
     </div>
 
+    <!-- DAFTAR PESAN (Hanya muncul setelah login) -->
+    <div id="adminPanel" style="display: none;">
+        <button class="btn" onclick="loadPesan()" style="margin-bottom: 15px; background: #1f5c3a;">🔄 Segarkan Data</button>
+        <div id="pesanContainer">Memuat data...</div>
+    </div>
 </div>
-
-
-
-<!-- ==================================================
-     DASHBOARD ADMIN
-================================================== -->
-
-<div
-    class="container"
-    id="adminContainer"
-    style="display:none;"
->
-
-
-    <!-- HEADER -->
-
-    <div class="header">
-
-        <div class="logo">
-            🌿
-        </div>
-
-
-        <div>
-
-            <h1>
-                Dashboard Admin Desa
-            </h1>
-
-            <div class="subtitle">
-                Desa Matang Labong • Kecamatan Tebas
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <!-- TOMBOL X -->
-
-    <a
-        href="index.html"
-        class="btn-close"
-        title="Kembali ke Beranda"
-    >
-        ×
-    </a>
-
-
-    <!-- INFO -->
-
-    <div class="info">
-
-        💬
-
-        <strong>
-            Data Pesan Masuk
-        </strong>
-
-        <br>
-
-        Pesan yang dikirim masyarakat melalui
-        halaman layanan akan tampil di sini
-        setelah tersimpan di Google Sheets.
-
-    </div>
-
-
-    <!-- SEARCH + REFRESH -->
-
-    <div class="actions">
-
-        <input
-            type="text"
-            id="searchInput"
-            class="search"
-            placeholder="🔍 Cari nama warga..."
-            onkeyup="filterTable()"
-        >
-
-
-        <button
-            class="btn-refresh"
-            onclick="loadData()"
-        >
-            🔄 Refresh Data
-        </button>
-
-    </div>
-
-
-    <!-- TABEL DATA -->
-
-    <div class="table-wrapper">
-
-        <table id="dataTable">
-
-            <thead>
-
-                <tr>
-
-                    <th>
-                        Waktu
-                    </th>
-
-                    <th>
-                        Nama Lengkap
-                    </th>
-
-                    <th>
-                        Nomor WA
-                    </th>
-
-                    <th>
-                        Dusun / RT
-                    </th>
-
-                    <th>
-                        Keperluan / Pesan
-                    </th>
-
-                </tr>
-
-            </thead>
-
-
-            <tbody id="tableBody">
-
-                <tr>
-
-                    <td
-                        colspan="5"
-                        class="loading"
-                    >
-                        ⏳ Memuat data...
-                    </td>
-
-                </tr>
-
-            </tbody>
-
-        </table>
-
-    </div>
-
-
-    <!-- FOOTER -->
-
-    <div class="footer">
-
-        © 2026
-
-        <strong>
-            Desa Matang Labong
-        </strong>
-
-        <br>
-
-        Sistem Informasi dan Layanan Masyarakat
-
-    </div>
-
-
-</div>
-
-
 
 <script>
-
-/* ==================================================
-   PASSWORD ADMIN
-================================================== */
-
-const PASSWORD_ADMIN = "desa123";
-
-
-/* ==================================================
-   GOOGLE APPS SCRIPT
-================================================== */
-
-const scriptURL =
-"https://script.google.com/macros/s/AKfycbzINn-UFss3UnA714uE-RhbbskQhBJ34NL_sDKQ2ACo3-N7PtWG6-aaYitiVU0Jh_voqw/exec";
-
-
-/* ==================================================
-   LOGIN ADMIN
-================================================== */
-
-function loginAdmin(){
-
-    const password =
-        document.getElementById(
-            "passwordInput"
-        ).value;
-
-
-    const error =
-        document.getElementById(
-            "errorMessage"
-        );
-
-
-    /* PASSWORD BENAR */
-
-    if(password === PASSWORD_ADMIN){
-
-        error.innerHTML = "";
-
-
-        document.getElementById(
-            "loginModal"
-        ).style.display = "none";
-
-
-        document.getElementById(
-            "adminContainer"
-        ).style.display = "block";
-
-
-        loadData();
-
-    }
-
-
-    /* PASSWORD SALAH */
-
-    else{
-
-        error.innerHTML =
-            "❌ Kata sandi salah. Silakan coba lagi.";
-
-
-        document.getElementById(
-            "passwordInput"
-        ).value = "";
-
-
-        document.getElementById(
-            "passwordInput"
-        ).focus();
-
-    }
-
-}
-
-
-/* ==================================================
-   LOGIN DENGAN ENTER
-================================================== */
-
-function enterLogin(event){
-
-    if(event.key === "Enter"){
-
-        loginAdmin();
-
-    }
-
-}
-
-
-/* ==================================================
-   TAMPIL / SEMBUNYIKAN PASSWORD
-================================================== */
-
-function togglePassword(){
-
-    const input =
-        document.getElementById(
-            "passwordInput"
-        );
-
-
-    const eye =
-        document.getElementById(
-            "eyeButton"
-        );
-
-
-    if(input.type === "password"){
-
-        input.type = "text";
-
-        eye.innerHTML = "🙈";
-
-    }
-
-    else{
-
-        input.type = "password";
-
-        eye.innerHTML = "👁️";
-
-    }
-
-}
-
-
-/* ==================================================
-   KEMBALI KE BERANDA
-================================================== */
-
-function goHome(){
-
-    window.location.href =
-        "index.html";
-
-}
-
-
-/* ==================================================
-   AMBIL DATA DARI GOOGLE SHEETS
-================================================== */
-
-function loadData(){
-
-    const tableBody =
-        document.getElementById(
-            "tableBody"
-        );
-
-
-    tableBody.innerHTML = `
-
-        <tr>
-
-            <td
-                colspan="5"
-                class="loading"
-            >
-                ⏳ Memuat data terbaru...
-            </td>
-
-        </tr>
-
-    `;
-
-
-    fetch(scriptURL)
-
-    .then(function(response){
-
-        if(!response.ok){
-
-            throw new Error(
-                "Gagal menghubungi server"
-            );
-
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbwhUWmqbiA07mkMWwzRBU9E40K6rUFw1mEw_3DgbCZPMTLJZc-dUF6RmqlfszNzCNIZ/exec';
+    const PASS_ADMIN = "desa123"; // Password sudah diganti jadi desa123
+
+    function loginAdmin() {
+        const pass = document.getElementById('passInput').value;
+        if (pass === PASS_ADMIN) {
+            document.getElementById('loginSection').style.display = 'none';
+            document.getElementById('adminPanel').style.display = 'block';
+            loadPesan();
+        } else {
+            document.getElementById('loginError').innerText = "Password salah!";
         }
+    }
 
-        return response.json();
+    function loadPesan() {
+        const container = document.getElementById('pesanContainer');
+        container.innerHTML = "Memuat daftar pesan...";
 
-    })
+        const formData = new FormData();
+        formData.append('action', 'getAllData');
 
+        fetch(scriptURL, { method: 'POST', body: formData })
+            .then(res => res.json())
+            .then(data => {
+                if(data.result === 'success') {
+                    if(data.data.length === 0) {
+                        container.innerHTML = "<p style='text-align:center;'>Belum ada pesan masuk.</p>";
+                        return;
+                    }
+                    let html = '';
+                    data.data.forEach((item, index) => {
+                        const isDone = item.status === 'Selesai';
+                        html += `
+                            <div class="card">
+                                <div class="card-header">
+                                    <span class="token-tag">${item.token || 'TANPA TOKEN'}</span>
+                                    <span class="status-badge ${isDone ? 'status-done' : ''}">${item.status || 'Pending'}</span>
+                                </div>
+                                <p><strong>Nama:</strong> ${item.nama} (${item.dusun})</p>
+                                <p><strong>WA:</strong> <a href="https://wa.me/${item.wa}" target="_blank">${item.wa}</a></p>
+                                <div class="pesan-text"><strong>Pesan:</strong> ${item.pesan}</div>
+                                
+                                <div class="reply-box">
+                                    <label><strong>Tanggapi Pesan Ini:</strong></label>
+                                    <select id="status_${index}">
+                                        <option value="Diproses" ${item.status === 'Diproses' ? 'selected' : ''}>Diproses</option>
+                                        <option value="Selesai" ${item.status === 'Selesai' ? 'selected' : ''}>Selesai</option>
+                                    </select>
+                                    <textarea id="reply_${index}" placeholder="Tuliskan jawaban dari admin...">${item.tanggapan || ''}</textarea>
+                                    <button class="btn" id="btn_${index}" onclick="kirimBalasan('${item.token}', ${index})">💾 Simpan Tanggapan</button>
+                                </div>
+                            </div>
+                        `;
+                    });
+                    container.innerHTML = html;
+                } else {
+                    container.innerHTML = "Gagal mengambil data.";
+                }
+            })
+            .catch(err => {
+                container.innerHTML = "Terjadi kesalahan koneksi.";
+            });
+    }
 
-    .then(function(data){
+    function kirimBalasan(token, index) {
+        const statusVal = document.getElementById(`status_${index}`).value;
+        const replyVal = document.getElementById(`reply_${index}`).value;
+        const btn = document.getElementById(`btn_${index}`);
 
-
-        /* JIKA TIDAK ADA DATA */
-
-        if(
-            !data ||
-            data.length <= 1
-        ){
-
-            tableBody.innerHTML = `
-
-                <tr>
-
-                    <td
-                        colspan="5"
-                        class="loading"
-                    >
-                        📭 Belum ada pesan masuk.
-                    </td>
-
-                </tr>
-
-            `;
-
+        if (!replyVal.trim()) {
+            alert('Tanggapan tidak boleh kosong!');
             return;
-
         }
 
-
-        tableBody.innerHTML = "";
-
-
-        /* LEWATI HEADER */
-
-        for(
-            let i = 1;
-            i < data.length;
-            i++
-        ){
-
-            const row = data[i];
-
-
-            if(
-                !row ||
-                !row[1]
-            ){
-
-                continue;
-
-            }
-
-
-            /* WAKTU */
-
-            let tanggal =
-                row[0] || "-";
-
-
-            const parsedDate =
-                new Date(row[0]);
-
-
-            if(
-                !isNaN(
-                    parsedDate.getTime()
-                )
-            ){
-
-                tanggal =
-                    parsedDate.toLocaleString(
-                        "id-ID"
-                    );
-
-            }
-
-
-            /* DATA */
-
-            const nama =
-                row[1] || "-";
-
-
-            const wa =
-                row[2] || "-";
-
-
-            const dusun =
-                row[3] || "-";
-
-
-            const pesan =
-                row[4] || "-";
-
-
-            /* FORMAT NOMOR WA */
-
-            let waNumber =
-                String(wa)
-                .replace(
-                    /[^0-9]/g,
-                    ""
-                );
-
-
-            if(
-                waNumber.startsWith("0")
-            ){
-
-                waNumber =
-                    "62" +
-                    waNumber.substring(1);
-
-            }
-
-
-            let waHTML = "-";
-
-
-            if(
-                wa !== "-" &&
-                waNumber !== ""
-            ){
-
-                waHTML = `
-
-                    <a
-                        class="wa-link"
-                        href="https://wa.me/${waNumber}"
-                        target="_blank"
-                    >
-                        ${escapeHTML(wa)}
-                        💬
-                    </a>
-
-                `;
-
-            }
-
-
-            /* BUAT BARIS */
-
-            const tr =
-                document.createElement("tr");
-
-
-            tr.innerHTML = `
-
-                <td>
-                    ${escapeHTML(tanggal)}
-                </td>
-
-                <td>
-                    <strong>
-                        ${escapeHTML(nama)}
-                    </strong>
-                </td>
-
-                <td>
-                    ${waHTML}
-                </td>
-
-                <td>
-                    ${escapeHTML(dusun)}
-                </td>
-
-                <td>
-                    ${escapeHTML(pesan)}
-                </td>
-
-            `;
-
-
-            tableBody.appendChild(tr);
-
-        }
-
-
-        /* JIKA DATA KOSONG */
-
-        if(
-            tableBody.children.length === 0
-        ){
-
-            tableBody.innerHTML = `
-
-                <tr>
-
-                    <td
-                        colspan="5"
-                        class="loading"
-                    >
-                        📭 Belum ada pesan masuk.
-                    </td>
-
-                </tr>
-
-            `;
-
-        }
-
-    })
-
-
-    .catch(function(error){
-
-        console.error(error);
-
-
-        tableBody.innerHTML = `
-
-            <tr>
-
-                <td
-                    colspan="5"
-                    class="loading"
-                    style="color:#c0392b;"
-                >
-
-                    ❌ Gagal mengambil data.
-
-                    <br><br>
-
-                    Periksa koneksi Google Apps Script.
-
-                </td>
-
-            </tr>
-
-        `;
-
-    });
-
-}
-
-
-/* ==================================================
-   PENCARIAN NAMA
-================================================== */
-
-function filterTable(){
-
-    const input =
-        document.getElementById(
-            "searchInput"
-        );
-
-
-    const filter =
-        input.value.toLowerCase();
-
-
-    const rows =
-        document.querySelectorAll(
-            "#dataTable tbody tr"
-        );
-
-
-    rows.forEach(function(row){
-
-        if(!row.children[1]){
-
-            return;
-
-        }
-
-
-        const nama =
-            row.children[1]
-            .textContent
-            .toLowerCase();
-
-
-        if(
-            nama.includes(filter)
-        ){
-
-            row.style.display = "";
-
-        }
-
-        else{
-
-            row.style.display = "none";
-
-        }
-
-    });
-
-}
-
-
-/* ==================================================
-   AMANKAN DATA HTML
-================================================== */
-
-function escapeHTML(text){
-
-    return String(text)
-
-        .replace(
-            /&/g,
-            "&amp;"
-        )
-
-        .replace(
-            /</g,
-            "&lt;"
-        )
-
-        .replace(
-            />/g,
-            "&gt;"
-        )
-
-        .replace(
-            /"/g,
-            "&quot;"
-        )
-
-        .replace(
-            /'/g,
-            "&#039;"
-        );
-
-}
-
+        btn.disabled = true;
+        btn.innerText = '⏳ Menyimpan...';
+
+        const formData = new FormData();
+        formData.append('action', 'updateTanggapan');
+        formData.append('token', token);
+        formData.append('status', statusVal);
+        formData.append('tanggapan', replyVal);
+
+        fetch(scriptURL, { method: 'POST', body: formData })
+            .then(res => res.json())
+            .then(data => {
+                btn.disabled = false;
+                btn.innerText = '💾 Simpan Tanggapan';
+                if(data.result === 'success') {
+                    alert('✅ Tanggapan berhasil dikirim dan tersimpan!');
+                    loadPesan();
+                } else {
+                    alert('❌ Gagal: ' + data.message);
+                }
+            })
+            .catch(err => {
+                btn.disabled = false;
+                btn.innerText = '💾 Simpan Tanggapan';
+                alert('❌ Terjadi kesalahan jaringan.');
+            });
+    }
 </script>
-
 
 </body>
 </html>
