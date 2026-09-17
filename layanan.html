@@ -32,6 +32,12 @@
         #statusMessage, #cekResult { margin-top: 15px; font-size: 14px; line-height: 1.5; }
         .card-result { background: #f4faf6; border: 2px dashed #28734b; padding: 15px; border-radius: 12px; margin-top: 15px; }
         .badge { display: inline-block; padding: 4px 10px; border-radius: 6px; font-size: 12px; font-weight: bold; background: #e2f1e5; color: #1f5c3a; margin-bottom: 8px; }
+
+        /* Tampilan Kotak Token & Tombol Salin */
+        .token-box { background: #e8f5eb; border: 1px solid #a5c4b1; border-radius: 12px; padding: 12px; margin-top: 10px; text-align: center; }
+        .token-code { font-size: 20px; font-weight: bold; color: #1f5c3a; letter-spacing: 1px; margin: 4px 0; display: block; }
+        .btn-copy { background: #1f5c3a; color: white; border: none; padding: 8px 16px; border-radius: 8px; font-size: 13px; font-weight: bold; cursor: pointer; margin-top: 6px; transition: 0.2s; }
+        .btn-copy:hover { background: #16432a; }
     </style>
 </head>
 <body>
@@ -121,7 +127,14 @@
                 btnSubmit.innerText = '📤 Kirim Pesan';
                 if(data.result === 'success') {
                     statusMessage.style.color = '#27ae60';
-                    statusMessage.innerHTML = '✅ Pesan berhasil dikirim!<br><strong>Simpan Token Anda: <span style="color:#1f5c3a; font-size:16px;">' + data.token + '</span></strong>';
+                    statusMessage.innerHTML = `
+                        ✅ <strong>Pesan berhasil dikirim!</strong>
+                        <div class="token-box">
+                            <span>Kode Token Anda:</span>
+                            <span class="token-code" id="tokenText">${data.token}</span>
+                            <button class="btn-copy" id="copyBtn" onclick="copyToken('${data.token}')">📋 Salin Token</button>
+                        </div>
+                    `;
                     form.reset();
                 } else {
                     statusMessage.style.color = '#d64545';
@@ -135,6 +148,21 @@
                 statusMessage.innerText = '❌ Gagal mengirim pesan. Coba lagi.';
             });
     });
+
+    // Fungsi Salin Token Ke Clipboard
+    function copyToken(token) {
+        navigator.clipboard.writeText(token).then(() => {
+            const btn = document.getElementById('copyBtn');
+            btn.innerText = '✅ Tersalin!';
+            btn.style.backgroundColor = '#27ae60';
+            setTimeout(() => {
+                btn.innerText = '📋 Salin Token';
+                btn.style.backgroundColor = '#1f5c3a';
+            }, 2000);
+        }).catch(err => {
+            alert('Gagal menyalin token: ' + err);
+        });
+    }
 
     // Cek Balasan Admin Pakai Token
     function cekStatusToken() {
